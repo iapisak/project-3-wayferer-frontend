@@ -4,6 +4,26 @@ import Login from '../Auth/Login'
 import Signup from '../Auth/Signup'
 
 class Navbars extends Component {
+
+  checkCurrentUser = () => {
+    const isCurrentUser = `
+        <li className="nav-item">
+          <NavLink className="nav-link" to="#">Profile</NavLink>
+        </li>
+        <li className="nav-item" onClick={ this.props.logout }>Log Out</li>
+    `
+    const notCurrentUser = `
+        <li className="nav-item" data-toggle="modal" data-target="#signIn" >Sign In</li>
+        <li className="nav-item" data-toggle="modal" data-target="#signUp" >Sign UP</li>
+        <li className="nav-item" onClick={ this.props.logout }>Log Out</li>
+    `
+    if (this.props.setCurrentUser) {
+      return isCurrentUser
+    } else {
+      return notCurrentUser
+    }
+  }
+
   render() {
     return (
       <>
@@ -24,45 +44,20 @@ class Navbars extends Component {
                 </li>
                 <li className="nav-item" data-toggle="modal" data-target="#signIn" >Sign In</li>
                 <li className="nav-item" data-toggle="modal" data-target="#signUp" >Sign UP</li>
+                <li className="nav-item" onClick={ this.props.logout }>Log Out</li>
               </ul>
             </div>
           </div>
         </nav>
 
         <div className="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div className="modal-dialog modal-dialog-centered" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalCenterTitle">Sign In</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <Login />
-              </div>
-            </div>
-          </div>
+          <Login setCurrentUser={this.props.setCurrentUser}/>
         </div>
 
         <div className="modal fade" id="signUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div className="modal-dialog modal-dialog-centered" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalCenterTitle">Sign Up</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <Signup />
-              </div>
-            </div>
-          </div>
+          <Signup />
         </div>
-
       </>
-
     )
   }
 }
