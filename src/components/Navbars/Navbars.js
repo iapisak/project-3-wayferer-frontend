@@ -4,6 +4,9 @@ import Login from '../Auth/Login'
 import Signup from '../Auth/Signup'
 
 class Navbars extends Component {
+  state = {
+    modalOpen: false
+  }
 
   authenticated = (currentUser) => {
     const isUser = (
