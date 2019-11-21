@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 
 import Carousel from './Carousel/Carousel';
 import ArticlesContainer from './ArticlesContainer/ArticlesContainer';
@@ -11,4 +12,4 @@ const Home = () => (
   </div>
 );
 
-export default Home;
+export default withRouter(Home);

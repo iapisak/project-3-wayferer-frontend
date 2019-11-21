@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Navbars from './components/Navbars/Navbars'
+import { withRouter } from 'react-router-dom'
 import Routes from './config/Routes'
 
 import './App.css';
@@ -24,7 +25,7 @@ class App extends Component {
     ).then(res => {
       console.log(res)
         this.setState({ currentUser: null });
-        // this.props.history.push('/login');
+        this.props.history.push('/');
       })
       .catch(err => console.log(err));
   };
@@ -42,4 +43,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

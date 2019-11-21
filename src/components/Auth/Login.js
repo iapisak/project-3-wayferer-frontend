@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 
 class Login extends Component {
@@ -18,6 +19,8 @@ class Login extends Component {
             console.log(res.data)
             this.props.setCurrentUser(res.data.data.id)
             this.setState({ email: '', password: '' })
+            this.props.history.push('/profile')
+
         })
         .catch((err) => console.log(err))
     }
@@ -32,6 +35,8 @@ class Login extends Component {
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
+                
                 <div className="modal-body">
                     <form className="form-signin" onSubmit={ this.handleOnSubmit }>
                         <div className="form-label-group">
@@ -53,5 +58,5 @@ class Login extends Component {
     }
 }
 
-export default Login
+export default withRouter(Login)
 
