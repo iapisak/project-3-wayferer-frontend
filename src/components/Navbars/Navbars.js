@@ -4,8 +4,6 @@ import Login from '../Auth/Login'
 import Signup from '../Auth/Signup'
 
 class Navbars extends Component {
-
-
   render() {
     return (
       <>
@@ -67,7 +65,6 @@ class Navbars extends Component {
 
     )
   }
-        
 }
 
 export default Navbars
