@@ -1,0 +1,30 @@
+.profile {
+  display: flex;
+}
+
+.profile-user-info {
+  width: 40vw;
+  padding: 20px;
+  text-align: center;
+}
+
+.profile-user-info img {
+  width: 100%;
+  max-width: 200px;;
+}
+
+.profile-user-city {
+  font-size: 1em;
+}
+
+.profile-postlist {
+  width: 60vw;
+  padding: 20px;
+}
+
+.post {
+  padding: 5px;
+  width: 100%;
+  border: 1px solid #a7a7a7;
+  border-radius: 10px;
+}

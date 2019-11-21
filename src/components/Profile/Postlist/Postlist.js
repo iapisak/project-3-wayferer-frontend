@@ -20,24 +20,12 @@ class Postlist extends Component {
     ],
   }
 
-  getPosts = () => {
-    // axios.get(
-
-    // ).then((res) => {
-    //   this.setState({
-    //     posts: res.data,
-    //   });
-    // }).catch((err) => {
-    //   console.log(err);
-    // });
-  };
-
   render() {
     return (
       <div className="postlist">
         <h2>Posts</h2>
         {this.state.posts.map((post) => (
-          <Post post={post} />
+          <Post post={post} key={post._id} />
         ))}
       </div>
     );
