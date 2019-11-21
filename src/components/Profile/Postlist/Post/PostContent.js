@@ -10,8 +10,11 @@ class PostContent extends Component{
         this.setState({content:this.props.content})
     }
     render(){
-        {expanded ? content:content.substring(1000)}
-        <button onClick={this.setState({expanded:!expanded})}>See More</button>
+        return(
+        <>
+        {this.state.expanded ? this.state.content:this.state.content.substring(1000)}
+        <button onClick={e => {this.setState({expanded:!this.state.expanded})}}>{this.state.expanded ? 'See Less':'See More'}</button> 
+        </>)
     }
 }
 
