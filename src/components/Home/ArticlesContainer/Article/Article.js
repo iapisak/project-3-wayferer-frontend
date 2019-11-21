@@ -5,6 +5,7 @@ const Article = (props) => (
     <h4>{props.article.title}</h4>
     <p>{props.article.content}</p>
   </div>
+
 );
 
 export default Article;

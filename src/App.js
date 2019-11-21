@@ -16,21 +16,23 @@ class App extends Component {
   };
 
   logout = () => {
+    console.log('logout')
+    console.log(localStorage)
     localStorage.removeItem('uid');
-    axios.post(
-      `${process.env.REACT_APP_BASE_API}/auth/logout`,
-      { withCredentials: true }
+    console.log(localStorage)
+    axios.get(`${process.env.REACT_APP_API_URL}/logout`, { withCredentials: true }
     ).then(res => {
+      console.log(res)
         this.setState({ currentUser: null });
-        this.props.history.push('/login');
+        // this.props.history.push('/login');
       })
       .catch(err => console.log(err));
   };
 
   render() {
     return (
-      <div className="App">
-        <Navbars />
+      <div>
+        <Navbars setCurrentUser={this.setCurrentUser} logout={this.logout} currentUser={this.state.currentUser}/>
         <Routes
           currentUser={this.state.currentUser}
           setCurrentUser={this.setCurrentUser}

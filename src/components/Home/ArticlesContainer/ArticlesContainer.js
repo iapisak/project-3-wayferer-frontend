@@ -19,12 +19,10 @@ const articles = [
 
 const ArticlesContainer = () => {
   return (
-    <div className="container">
-      <div className="articles-container row">
-        {articles.map((article) => (
-          <Article article={article} />
-        ))}
-      </div>
+    <div className="articles-container row">
+      {articles.map((article) => (
+        <Article article={article} />
+      ))}
     </div>
   );
 };
