@@ -7,12 +7,12 @@ class ProfileEditForm extends Component {
     currentCity: '',
   };
 
-  // componentDidMount() {
-  //   this.setState({
-  //     name: this.props.user.name,
-  //     currentCity: this.props.user.currentCity,
-  //   });
-  // }
+  componentDidMount() {
+    this.setState({
+      name: this.props.user.name,
+      currentCity: this.props.user.currentCity,
+    });
+  }
 
   handleChange = (e) => {
     this.setState({
