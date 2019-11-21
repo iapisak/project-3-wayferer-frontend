@@ -29,7 +29,7 @@ class Postlist extends Component {
     ).then((res) => {
       console.log(res);
       this.setState({
-        posts: res.data.posts,
+        posts: res.data.data.posts,
       });
     }).catch((err) => console.log(err));
   }

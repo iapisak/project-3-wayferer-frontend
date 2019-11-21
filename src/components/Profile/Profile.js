@@ -8,6 +8,7 @@ import './Profile.css';
 class Profile extends Component {
   state = {
     editMode: false,
+    ajaxLoaded: false,
     user: {
         name: 'test user',
         currentCity: 'test city',
@@ -24,19 +25,48 @@ class Profile extends Component {
       console.log(res);
       this.setState({
         user: res.data.data,
+        ajaxLoaded: true,
       });
     }).catch((err) => console.log(err));
   }
 
   toggleEdit = () => {
-    console.log('toggle');
+    this.setState(prevState => ({
+      editMode: !prevState.editMode,
+    }));
+  };
+
+  displayUserInfo = () => {
+    const { ajaxLoaded, editMode, user } = this.state;
+    if (!ajaxLoaded) {
+      return null;
+    }
+    if (editMode) {
+      return (
+        <ProfileEdit
+          user={user}
+          handleClick={this.handleClick}
+          handleSubmit={this.handleSubmit}
+          pictureUploaded={this.pictureUploaded}
+          fileUploadHandler={this.fileUploadHandler}
+        />
+      )
+    } else {
+      return (
+        <UserInfo
+          user={user}
+          toggleEdit={this.toggleEdit}
+        />
+      );
+    }
   };
 
   handleSubmit = (updated) => {
+    this.toggleEdit();
     const {profilePhoto} = this.state.user
     const newUser = {...updated,profilePhoto}
     this.setState({user:newUser})
-    
+
     const userId = localStorage.getItem('uid');
     axios.put(
       `${process.env.REACT_APP_API_URL}/users/${userId}/update`,
@@ -70,17 +100,7 @@ class Profile extends Component {
     const { user } = this.state;
     return (
       <div className="profile">
-        <UserInfo
-          user={user}
-          toggleEdit={this.toggleEdit}
-        />
-        <ProfileEdit
-          user={user}
-          handleClick={this.handleClick}
-          handleSubmit={this.handleSubmit}
-          pictureUploaded={this.pictureUploaded}
-          fileUploadHandler={this.fileUploadHandler}
-        />
+        {this.displayUserInfo()}
         <div className="profile-postlist">
           <Postlist />
         </div>
