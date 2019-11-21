@@ -20,23 +20,23 @@ class Login extends Component {
             this.props.setCurrentUser(res.data.data.id)
             this.setState({ email: '', password: '' })
             this.props.history.push('/profile')
-
+            this.props.handleModelOnClick()
         })
         .catch((err) => console.log(err))
     }
 
     render () {
         return (
+
         <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
                 <div className="modal-header">
                     <h5 className="modal-title" id="exampleModalCenterTitle">Sign In</h5>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span onClick={this.props.handleModelOnClick}>&times;</span>
                     </button>
                 </div>
 
-                
                 <div className="modal-body">
                     <form className="form-signin" onSubmit={ this.handleOnSubmit }>
                         <div className="form-label-group">

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import emailjs from 'emailjs-com';
+
 
 class Signup extends Component {
   state = {
@@ -23,7 +25,19 @@ class Signup extends Component {
       this.state
     ).then((res) => {
       console.log(res);
+      this.setState({ name: '', email: '', currentCity: '', password: '', password2: '', })
+      this.props.handleModelOnClickSignup()
     }).catch((err) => console.log(err));
+    var template_params = {
+      "reply_to": this.state.email,
+      "from_name": "WayFarer-SF",
+      "to_name": this.state.name,
+      "message_html": "Congratulations, you have signed up for wayfarer-SF, we hope you find our products useful."
+   }
+   var service_id = "default_service";
+   var template_id = "template_GK77suy2";
+   var user_id = "user_ctGR62rF5nLViffjCQ1A8"
+   emailjs.send(service_id, template_id,template_params, user_id);
   };
 
   render() {
@@ -33,7 +47,7 @@ class Signup extends Component {
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalCenterTitle">Sign Up</h5>
             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+              <span onClick={this.props.handleModelOnClickSignup}>&times;</span>
             </button>
           </div>
           <div className="modal-body">
