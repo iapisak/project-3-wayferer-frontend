@@ -33,6 +33,10 @@ class Profile extends Component {
   };
 
   handleSubmit = (updated) => {
+    const {profilePhoto} = this.state.user
+    const newUser = {...updated,profilePhoto}
+    this.setState({user:newUser})
+    
     const userId = localStorage.getItem('uid');
     axios.put(
       `${process.env.REACT_APP_API_URL}/users/${userId}/update`,
