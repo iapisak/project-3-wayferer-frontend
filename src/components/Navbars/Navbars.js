@@ -3,7 +3,6 @@ import { NavLink, Link } from 'react-router-dom'
 import Login from '../Auth/Login'
 import Signup from '../Auth/Signup'
 
-
 import './Navbars.css'
 
 class Navbars extends Component {
@@ -22,7 +21,6 @@ class Navbars extends Component {
   }
 
   handleModelOnClickSignup = () => {
-    console.log('click')
     if (this.state.signupDisplay.display === 'none') {
       this.setState({signupDisplay: {display: 'block' }})
     } else {
@@ -37,14 +35,14 @@ class Navbars extends Component {
       <li className="nav-item">
         <NavLink className="nav-link" to="/profile">Profile</NavLink>
       </li>
-      <li className="nav-item" onClick={ this.props.logout }>Log Out</li>
+      <li className="nav-link" onClick={ this.props.logout }>Log out</li>
       </>
     )
     const isGuest = (
         <>
-        <li className="nav-item" onClick={this.handleModelOnClick} >Sign In</li>
-        <li className="nav-item" onClick={this.handleModelOnClickSignup} >Sign UP</li>
-        <li className="nav-item" onClick={ this.props.logout }>Log Out</li>
+        <li className="nav-link" onClick={this.handleModelOnClick} >Sign in</li>
+        <li className="nav-link" onClick={this.handleModelOnClickSignup} >Sign up</li>
+        {/* <li className="nav-link" onClick={ this.props.logout }>Log Out</li> */}
         </>
     );
 
