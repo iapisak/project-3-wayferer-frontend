@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import Post from './Post/Post';
 
@@ -18,6 +19,19 @@ class Postlist extends Component {
         content: 'fake content'
       },
     ],
+  }
+
+  componentDidMount() {
+    const userId = localStorage.getItem('uid');
+    axios.get(
+      `${process.env.REACT_APP_API_URL}/users/${userId}/posts`,
+      { withCredentials: true}
+    ).then((res) => {
+      console.log(res);
+      this.setState({
+        posts: res.data.posts,
+      });
+    }).catch((err) => console.log(err));
   }
 
   render() {

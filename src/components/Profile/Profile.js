@@ -21,7 +21,7 @@ class Profile extends Component {
     ).then((res) => {
       console.log(res);
       this.setState({
-        user: res.data.data._doc,
+        user: res.data.data,
       });
     }).catch((err) => console.log(err));
   }
