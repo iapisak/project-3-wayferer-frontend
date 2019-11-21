@@ -8,6 +8,10 @@ class Login extends Component {
         password: '',
     }
 
+    handleOnChange = e => {
+        this.setState({ [e.target.name]: e.target.value})
+    }
+
     handleOnSubmit = e => {
         e.preventDefault()
         axios.post(`${process.env.REACT_APP_API_URL}/users/login`, this.state, { withCredentials: true })
@@ -17,7 +21,6 @@ class Login extends Component {
             this.setState({ email: '', password: '' })
             this.props.history.push('/profile')
             this.props.handleModelOnClick()
-
         })
         .catch((err) => console.log(err))
     }

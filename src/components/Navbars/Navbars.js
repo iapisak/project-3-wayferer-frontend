@@ -9,15 +9,24 @@ import './Navbars.css'
 class Navbars extends Component {
 
   state = {
-    display: {display: 'none'}
+    loginDisplay: {display: 'none'},
+    signupDisplay: {display: 'none'}
   }
 
   handleModelOnClick = () => {
-    console.log('click')
-    if (this.state.display.display === 'none') {
-      this.setState({display: {display: 'block' }})
+    if (this.state.loginDisplay.display === 'none') {
+      this.setState({loginDisplay: {display: 'block' }})
     } else {
-      this.setState({display: {display: 'none' }})
+      this.setState({loginDisplay: {display: 'none' }})
+    }
+  }
+
+  handleModelOnClickSignup = () => {
+    console.log('click')
+    if (this.state.signupDisplay.display === 'none') {
+      this.setState({signupDisplay: {display: 'block' }})
+    } else {
+      this.setState({signupDisplay: {display: 'none' }})
     }
   }
 
@@ -34,7 +43,7 @@ class Navbars extends Component {
     const isGuest = (
         <>
         <li className="nav-item" onClick={this.handleModelOnClick} >Sign In</li>
-        <li className="nav-item" data-toggle="modal" data-target="#signUp" >Sign UP</li>
+        <li className="nav-item" onClick={this.handleModelOnClickSignup} >Sign UP</li>
         <li className="nav-item" onClick={ this.props.logout }>Log Out</li>
         </>
     );
@@ -67,16 +76,12 @@ class Navbars extends Component {
           </div>
         </nav>
 
-        <div className='modal-container' style={this.state.display}>
+        <div className='modal-container' style={this.state.loginDisplay}>
           <Login setCurrentUser={this.props.setCurrentUser} handleModelOnClick={this.handleModelOnClick}/>
         </div>
 
-        {/* <div className="modal fade" id="signIn" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <Login setCurrentUser={this.props.setCurrentUser} handleModal={this.handleOnModal}/>
-        </div> */}
-
-        <div className="modal fade" id="signUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <Signup />
+        <div className="modal-container-signup" style={this.state.signupDisplay}>
+          <Signup handleModelOnClickSignup={this.handleModelOnClickSignup} />
         </div>
       </>
     )
