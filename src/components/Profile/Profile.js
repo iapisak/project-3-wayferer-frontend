@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Widget } from "@uploadcare/react-widget";
-// import UserInfo from './UserInfo/UserInfo';
+import UserInfo from './UserInfo/UserInfo';
+import ProfileEdit from './ProfileEdit/ProfileEdit';
 import Postlist from './Postlist/Postlist';
 import './Profile.css';
 
 class Profile extends Component {
   state = {
+    editMode: false,
     user: {
         name: 'test user',
         currentCity: 'test city',
-        profilePhoto: ''
+        profilePhoto: '',
     },
   };
 
@@ -26,6 +27,21 @@ class Profile extends Component {
       });
     }).catch((err) => console.log(err));
   }
+
+  toggleEdit = () => {
+    console.log('toggle');
+  };
+
+  handleSubmit = (updated) => {
+    const userId = localStorage.getItem('uid');
+    axios.put(
+      `${process.env.REACT_APP_API_URL}/users/${userId}/update`,
+      updated
+    ).then((res) => {
+      console.log(res);
+    }).catch((err) => console.log(err));
+  };
+
   pictureUploaded =(event)=>{
     console.log(event.originalUrl)
     this.setState({
@@ -33,28 +49,34 @@ class Profile extends Component {
     })
     console.log(this.state.user.profilePhoto)
   }
+
   fileUploadHandler=(event)=>{
     console.log("button working")
     const photoLink = this.state.user.profilePhoto
     event.preventDefault()
     const userId = localStorage.getItem('uid');
-    axios.put(`${process.env.REACT_APP_API_URL}/users/update/${userId}`,{profilePhoto:photoLink}).then((res)=>{
+    axios.put(`${process.env.REACT_APP_API_URL}/users/${userId}/update`,{profilePhoto:photoLink}).then((res)=>{
       console.log(res)
     }).catch((err)=>{
       console.log(err)
     })
   }
+
   render() {
     const { user } = this.state;
     return (
       <div className="profile">
-        <div className="profile-user-info">
-          <img src={user.profilePhoto} alt={user.name} />
-          <h2>{user.name}</h2>
-          <h3 className="profile-user-city">{user.currentCity}</h3>
-          <Widget publicKey="38e56a09985595f94b66" onChange={this.pictureUploaded} type="file"/>
-          <button onClick={this.fileUploadHandler}>Submit</button>
-        </div>
+        <UserInfo
+          user={user}
+          toggleEdit={this.toggleEdit}
+        />
+        <ProfileEdit
+          user={user}
+          handleClick={this.handleClick}
+          handleSubmit={this.handleSubmit}
+          pictureUploaded={this.pictureUploaded}
+          fileUploadHandler={this.fileUploadHandler}
+        />
         <div className="profile-postlist">
           <Postlist />
         </div>

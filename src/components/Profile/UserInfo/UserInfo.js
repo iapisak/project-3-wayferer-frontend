@@ -1,10 +1,12 @@
 import React from 'react';
 
-const UserInfo = ({ user }) => (
+const UserInfo = ({ user, toggleEdit }) => (
   <div className="profile-user-info">
-    <h2>{user.username}</h2>
-    <h3>{user.currentCity}</h3>
-  </div>
+  <img src={user.profilePhoto} alt={user.name} />
+  <h2>{user.name}</h2>
+  <h3 className="profile-user-city">{user.currentCity}</h3>
+  <button onClick={toggleEdit}>Edit</button>
+</div>
 );
 
 export default UserInfo;
