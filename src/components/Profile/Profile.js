@@ -21,9 +21,9 @@ class Profile extends Component {
     ).then((res) => {
       console.log(res);
       this.setState({
-        user: res.data,
-      }).catch((err) => console.log(err));
-    });
+        user: res.data.data._doc,
+      });
+    }).catch((err) => console.log(err));
   }
 
   render() {
@@ -31,11 +31,12 @@ class Profile extends Component {
     return (
       <div className="profile">
         <div className="profile-user-info">
+          <img src={user.profilePhoto} alt={user.name} />
           <h2>{user.name}</h2>
           <h3 className="profile-user-city">{user.currentCity}</h3>
         </div>
         <div className="profile-postlist">
-          <Postlist posts={user.posts}/>
+          <Postlist />
         </div>
       </div>
     );

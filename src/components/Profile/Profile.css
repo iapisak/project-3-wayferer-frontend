@@ -5,6 +5,12 @@
 .profile-user-info {
   width: 40vw;
   padding: 20px;
+  text-align: center;
+}
+
+.profile-user-info img {
+  width: 100%;
+  max-width: 200px;;
 }
 
 .profile-user-city {
