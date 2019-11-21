@@ -42,7 +42,6 @@ class Navbars extends Component {
         <>
         <li className="nav-link" onClick={this.handleModelOnClick} >Sign in</li>
         <li className="nav-link" onClick={this.handleModelOnClickSignup} >Sign up</li>
-        {/* <li className="nav-link" onClick={ this.props.logout }>Log Out</li> */}
         </>
     );
 
