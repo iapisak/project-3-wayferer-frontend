@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import Post from './Post/Post';
 
@@ -20,24 +21,25 @@ class Postlist extends Component {
     ],
   }
 
-  getPosts = () => {
-    // axios.get(
-
-    // ).then((res) => {
-    //   this.setState({
-    //     posts: res.data,
-    //   });
-    // }).catch((err) => {
-    //   console.log(err);
-    // });
-  };
+  componentDidMount() {
+    const userId = localStorage.getItem('uid');
+    axios.get(
+      `${process.env.REACT_APP_API_URL}/users/${userId}/posts`,
+      { withCredentials: true}
+    ).then((res) => {
+      console.log(res);
+      this.setState({
+        posts: res.data.posts,
+      });
+    }).catch((err) => console.log(err));
+  }
 
   render() {
     return (
       <div className="postlist">
         <h2>Posts</h2>
         {this.state.posts.map((post) => (
-          <Post post={post} />
+          <Post post={post} key={post._id} />
         ))}
       </div>
     );
