@@ -5,22 +5,27 @@ import Signup from '../Auth/Signup'
 
 class Navbars extends Component {
 
-  checkCurrentUser = () => {
-    const isCurrentUser = `
-        <li className="nav-item">
-          <NavLink className="nav-link" to="#">Profile</NavLink>
-        </li>
-        <li className="nav-item" onClick={ this.props.logout }>Log Out</li>
-    `
-    const notCurrentUser = `
+  authenticated = (currentUser) => {
+    const isUser = (
+      <>
+      <li className="nav-item">
+        <NavLink className="nav-link" to="#">Profile</NavLink>
+      </li>
+      <li className="nav-item" onClick={ this.props.logout }>Log Out</li>
+      </>
+    )
+    const isGuest = (
+        <>
         <li className="nav-item" data-toggle="modal" data-target="#signIn" >Sign In</li>
         <li className="nav-item" data-toggle="modal" data-target="#signUp" >Sign UP</li>
         <li className="nav-item" onClick={ this.props.logout }>Log Out</li>
-    `
-    if (this.props.setCurrentUser) {
-      return isCurrentUser
+        </>
+    );
+
+    if (currentUser !== null) {
+      return isUser
     } else {
-      return notCurrentUser
+      return isGuest
     }
   }
 
@@ -29,7 +34,7 @@ class Navbars extends Component {
       <>
         <nav className="navbar navbar-expand-md navbar-dark bg-dark">
           <div className="container">
-            <Link className="navbar-brand" to="#">WAYFARER</Link>
+            <Link className="navbar-brand" to="/">WAYFARER</Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -39,18 +44,13 @@ class Navbars extends Component {
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/">Home</NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="#">Profile</NavLink>
-                </li>
-                <li className="nav-item" data-toggle="modal" data-target="#signIn" >Sign In</li>
-                <li className="nav-item" data-toggle="modal" data-target="#signUp" >Sign UP</li>
-                <li className="nav-item" onClick={ this.props.logout }>Log Out</li>
+                { this.authenticated(this.props.currentUser)}
               </ul>
             </div>
           </div>
         </nav>
 
-        <div className="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div className="modal fade" id="signIn" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <Login setCurrentUser={this.props.setCurrentUser}/>
         </div>
 

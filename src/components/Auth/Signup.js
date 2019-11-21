@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
 class Signup extends Component {
   state = {
@@ -18,33 +18,26 @@ class Signup extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submitted');
-    // axios.post(
-    //   `${process.env.REACT_APP_API_URL}/auth/register`,
-    //   this.state
-    // ).then((res) => {
-    //   console.log(res);
-    // }).catch((err) => console.log(err));
+    axios.post(
+      `${process.env.REACT_APP_API_URL}/users/create`,
+      this.state
+    ).then((res) => {
+      console.log(res);
+    }).catch((err) => console.log(err));
   };
 
   render() {
     return (
       <div className="modal-dialog modal-dialog-centered" role="document">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title" id="exampleModalCenterTitle">Sign Up</h5>
-          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div className="modal-body">
-
-
-      <div className="container jumbotron mt-4">
-        <div className="row">
-          <div className="col-md-4 offset-md-4">
-            <h1 className="mb-3">Sign up</h1>
-            <form onSubmit={this.handleSubmit}>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalCenterTitle">Sign Up</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <form  onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Name</label>
                 <input onChange={this.handleChange} className="form-control form-control-lg" type="text" id="name" name="name" value={this.state.name} />
@@ -70,10 +63,6 @@ class Signup extends Component {
           </div>
         </div>
       </div>
-
-      </div>
-            </div>
-          </div>
     );
   }
 }
