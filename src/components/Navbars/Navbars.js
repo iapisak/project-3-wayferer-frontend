@@ -9,7 +9,7 @@ class Navbars extends Component {
     const isUser = (
       <>
       <li className="nav-item">
-        <NavLink className="nav-link" to="#">Profile</NavLink>
+        <NavLink className="nav-link" to="/profile">Profile</NavLink>
       </li>
       <li className="nav-item" onClick={ this.props.logout }>Log Out</li>
       </>
