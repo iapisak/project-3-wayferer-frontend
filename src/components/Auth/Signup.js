@@ -25,6 +25,8 @@ class Signup extends Component {
       this.state
     ).then((res) => {
       console.log(res);
+      this.setState({ name: '', email: '', currentCity: '', password: '', password2: '', })
+      this.props.handleModelOnClickSignup()
     }).catch((err) => console.log(err));
     var template_params = {
       "reply_to": this.state.email,
@@ -45,7 +47,7 @@ class Signup extends Component {
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalCenterTitle">Sign Up</h5>
             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+              <span onClick={this.props.handleModelOnClickSignup}>&times;</span>
             </button>
           </div>
           <div className="modal-body">
