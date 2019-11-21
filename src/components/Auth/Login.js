@@ -8,10 +8,6 @@ class Login extends Component {
         password: '',
     }
 
-    handleOnChange = e => {
-        this.setState({ [e.target.name]: e.target.value})
-    }
-
     handleOnSubmit = e => {
         e.preventDefault()
         axios.post(`${process.env.REACT_APP_API_URL}/users/login`, this.state, { withCredentials: true })
@@ -20,6 +16,7 @@ class Login extends Component {
             this.props.setCurrentUser(res.data.data.id)
             this.setState({ email: '', password: '' })
             this.props.history.push('/profile')
+            this.props.handleModelOnClick()
 
         })
         .catch((err) => console.log(err))
@@ -27,16 +24,16 @@ class Login extends Component {
 
     render () {
         return (
+
         <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
                 <div className="modal-header">
                     <h5 className="modal-title" id="exampleModalCenterTitle">Sign In</h5>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span onClick={this.props.handleModelOnClick}>&times;</span>
                     </button>
                 </div>
 
-                
                 <div className="modal-body">
                     <form className="form-signin" onSubmit={ this.handleOnSubmit }>
                         <div className="form-label-group">

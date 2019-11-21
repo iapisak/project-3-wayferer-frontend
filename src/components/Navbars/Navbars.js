@@ -3,10 +3,24 @@ import { NavLink, Link } from 'react-router-dom'
 import Login from '../Auth/Login'
 import Signup from '../Auth/Signup'
 
+
+import './Navbars.css'
+
 class Navbars extends Component {
+
   state = {
-    modalOpen: false
+    display: {display: 'none'}
   }
+
+  handleModelOnClick = () => {
+    console.log('click')
+    if (this.state.display.display === 'none') {
+      this.setState({display: {display: 'block' }})
+    } else {
+      this.setState({display: {display: 'none' }})
+    }
+  }
+
 
   authenticated = (currentUser) => {
     const isUser = (
@@ -19,7 +33,7 @@ class Navbars extends Component {
     )
     const isGuest = (
         <>
-        <li className="nav-item" data-toggle="modal" data-target="#signIn" >Sign In</li>
+        <li className="nav-item" onClick={this.handleModelOnClick} >Sign In</li>
         <li className="nav-item" data-toggle="modal" data-target="#signUp" >Sign UP</li>
         <li className="nav-item" onClick={ this.props.logout }>Log Out</li>
         </>
@@ -53,9 +67,13 @@ class Navbars extends Component {
           </div>
         </nav>
 
-        <div className="modal fade" id="signIn" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <Login setCurrentUser={this.props.setCurrentUser}/>
+        <div className='modal-container' style={this.state.display}>
+          <Login setCurrentUser={this.props.setCurrentUser} handleModelOnClick={this.handleModelOnClick}/>
         </div>
+
+        {/* <div className="modal fade" id="signIn" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <Login setCurrentUser={this.props.setCurrentUser} handleModal={this.handleOnModal}/>
+        </div> */}
 
         <div className="modal fade" id="signUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <Signup />
