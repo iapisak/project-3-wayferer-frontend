@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 import Navbars from './components/Navbars/Navbars'
 import Routes from './config/Routes'
 
@@ -29,7 +30,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Wayfarer</h1>
         <Navbars />
         <Routes
           currentUser={this.state.currentUser}
