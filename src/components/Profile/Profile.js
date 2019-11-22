@@ -79,9 +79,23 @@ class Profile extends Component {
   pictureUploaded =(event)=>{
     console.log(event.originalUrl)
     this.setState({
-      user:{profilePhoto: event.originalUrl}
+      user:{
+        ...this.state.user,
+        profilePhoto: event.originalUrl
+      },
+      editMode: false,
     })
     console.log(this.state.user.profilePhoto)
+    const photoLink = this.state.user.profilePhoto
+    const userId = localStorage.getItem('uid');
+    axios.put(
+      `${process.env.REACT_APP_API_URL}/users/${userId}/update`,
+      {profilePhoto:photoLink}
+    ).then((res)=>{
+      console.log(res)
+    }).catch((err)=>{
+      console.log(err)
+    });
   }
 
   fileUploadHandler=(event)=>{
@@ -97,7 +111,6 @@ class Profile extends Component {
   }
 
   render() {
-    const { user } = this.state;
     return (
       <div className="profile">
         {this.displayUserInfo()}

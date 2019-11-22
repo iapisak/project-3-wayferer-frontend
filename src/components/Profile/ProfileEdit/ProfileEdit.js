@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Widget } from "@uploadcare/react-widget";
 
+import '../Profile.css';
+
 class ProfileEditForm extends Component {
   state = {
     name: '',
@@ -23,9 +25,9 @@ class ProfileEditForm extends Component {
   render() {
     const { handleSubmit, pictureUploaded, fileUploadHandler} = this.props;
     return (
-      <div className="container mt-4">
-        <div className="row">
-          <div className="col-md-4 offset-md-4">
+      <div className="mt-4 profile-edit">
+        {/* <div className="row"> */}
+          <div className="col-md-8 offset-md-2">
             <h4 className="mb-3">Edit your profile</h4>
             <form onSubmit={e=>{e.preventDefault();handleSubmit(this.state)}}>
               <div className="form-group">
@@ -38,14 +40,13 @@ class ProfileEditForm extends Component {
               </div>
               <button className="btn btn-primary float-right" type="submit">Submit</button>
             </form>
+            <Widget
+              publicKey="38e56a09985595f94b66"
+              onChange={pictureUploaded}
+              type="file"
+            />
           </div>
-        </div>
-        <Widget
-          publicKey="38e56a09985595f94b66"
-          onChange={pictureUploaded}
-          type="file"
-        />
-        <button onClick={fileUploadHandler}>Submit</button>
+        {/* </div> */}
       </div>
     );
   }
