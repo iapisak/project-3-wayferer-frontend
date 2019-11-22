@@ -9,20 +9,20 @@ class CreatePost extends Component{
         ajaxLoaded : false,
         postContent : {
             city: '',
-            id : '',
+            slug : '',
             title : '',
             content : '',
         }
     }
     dropDownItemHandler = (e)=>{
         // console.log(e.target.)
-        const optionName = e.target.value.split(',')[1];
-        const optionId = e.target.value.split(',')[0]
-        console.log(optionId,optionName)
+        const optionName = e.target.value.split(',')[0];
+        const slug = e.target.value.split(',')[1]
+        console.log(slug,optionName)
         this.setState({
             postContent:{
                 city : optionName,
-                id : optionId,
+                slug : slug,
                 title : this.state.postContent.title,
                 content: this.state.postContent.content,
 
@@ -35,7 +35,7 @@ class CreatePost extends Component{
         this.setState({
             postContent:{
                 city : this.state.postContent.city,
-                id : this.state.postContent.id,
+                slug : this.state.postContent.slug,
                 title : this.state.postContent.title,
                 content: e.target.value,
 
@@ -48,7 +48,7 @@ class CreatePost extends Component{
         this.setState({
             postContent:{
                 city : this.state.postContent.city,
-                id : this.state.postContent.id,
+                slug : this.state.postContent.slug,
                 title: e.target.value,
                 content : this.state.postContent.content
             }
@@ -56,9 +56,22 @@ class CreatePost extends Component{
         console.log(e.target.value)
     }
     submitHandler=(e)=>{
+        console.log(this.state.postContent.slug)
+        const userId = localStorage.getItem('uid');
         console.log(this.state.postContent)
+        axios.post(
+            `${process.env.REACT_APP_API_URL}/cities/${this.state.postContent.slug}/posts/new`,{
+                title : `${this.state.postContent.title}`,
+                content : `${this.state.postContent.content}`,
+                city : `${this.state.postContent.city}`,
+                user : `${userId}`
+            }
+        ).then((res)=>{
+            console.log(res)
+        })
     }
     componentDidMount(){
+        const userId = localStorage.getItem('uid');
         axios.get(
             `${process.env.REACT_APP_API_URL}/cities`,
             {withCredentials : true}
@@ -92,7 +105,7 @@ class CreatePost extends Component{
                                 <div class="dropdown show" style={{margin: '10px 0 5px 10px'}}>
                                     <select onChange={this.dropDownItemHandler}>
                                         {this.state.ajaxLoaded && this.state.data.map(data=>{
-                                        return <option value={`${data._id}, ${data.name}`}>{data.name}</option>
+                                        return <option value={`${data.name},${data.slug}`}>{data.name}</option>
                                         })}
                                     </select>
                                 </div>
