@@ -4,11 +4,13 @@ import Home from '../components/Home/Home';
 import Profile from '../components/Profile/Profile';
 import PostDetail from '../components/PostDetail/PostDetail';
 import CitiesContainer from "../components/City/CitiesContainer";
+import create from '../components/City/CreatePost'
 
 export default ({ currentUser }) => (
   <Switch>
       <Route exact path="/" component={Home} />
       <Route path='/cities' component={CitiesContainer}/>
+      <Route path ='/city/create' component={create} />
       <Route path="/profile" render={() => (
         <Profile currentUser={currentUser}/>
       )}
