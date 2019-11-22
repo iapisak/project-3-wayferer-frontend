@@ -24,20 +24,23 @@ class Signup extends Component {
       `${process.env.REACT_APP_API_URL}/users/create`,
       this.state
     ).then((res) => {
-      console.log(res);
+      
+      const template_params = {
+        "reply_to": this.state.email,
+        "from_name": "WayFarer-SF",
+        "to_name": this.state.name,
+        "message_html": "Congratulations, you have signed up for wayfarer-SF, we hope you find our products useful."
+      }
+  
+      const service_id = "default_service";
+      const template_id = "template_GK77suy2";
+      const user_id = "user_ctGR62rF5nLViffjCQ1A8"
+      emailjs.send(service_id, template_id,template_params, user_id);
+
       this.setState({ name: '', email: '', currentCity: '', password: '', password2: '', })
       this.props.handleModelOnClickSignup()
+      
     }).catch((err) => console.log(err));
-    var template_params = {
-      "reply_to": this.state.email,
-      "from_name": "WayFarer-SF",
-      "to_name": this.state.name,
-      "message_html": "Congratulations, you have signed up for wayfarer-SF, we hope you find our products useful."
-   }
-   var service_id = "default_service";
-   var template_id = "template_GK77suy2";
-   var user_id = "user_ctGR62rF5nLViffjCQ1A8"
-   emailjs.send(service_id, template_id,template_params, user_id);
   };
 
   render() {

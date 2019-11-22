@@ -16,7 +16,6 @@ class Login extends Component {
         e.preventDefault()
         axios.post(`${process.env.REACT_APP_API_URL}/users/login`, this.state, { withCredentials: true })
         .then((res) => {
-            console.log(res.data)
             this.props.setCurrentUser(res.data.data.id)
             this.setState({ email: '', password: '' })
             this.props.history.push('/profile')
