@@ -57,6 +57,10 @@ class CreatePost extends Component{
     }
     submitHandler=(e)=>{
         console.log(this.state.postContent)
+        axios.post(`${process.env.REACT_APP_API_URL}/posts`,this.state.postContent)
+        .then(res => {
+            console.log(res)
+        })
     }
     componentDidMount(){
         axios.get(
