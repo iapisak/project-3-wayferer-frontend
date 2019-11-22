@@ -117,8 +117,8 @@ class CreatePost extends Component{
                                 <textarea style={{width:'450px', height: '200px',margin:"10px"}} onChange={this.postContentHandler}></textarea>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary" onClick={this.submitHandler}>Submit</button>
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.submitHandler}>Submit</button>
+                                {/* <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.submitHandler}>Submit</button> */}
                             </div>
                         </div>
                     </div>
