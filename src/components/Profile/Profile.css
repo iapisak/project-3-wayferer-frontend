@@ -2,7 +2,8 @@
   display: flex;
 }
 
-.profile-user-info {
+.profile-user-info,
+.profile-edit {
   width: 40vw;
   padding: 20px;
   text-align: center;
