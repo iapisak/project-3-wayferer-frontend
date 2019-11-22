@@ -5,6 +5,7 @@ import Post from './Post/Post';
 
 class Postlist extends Component {
   state = {
+    ajaxLoaded: false,
     posts: [
       {
         title: 'fake1',
@@ -29,7 +30,8 @@ class Postlist extends Component {
     ).then((res) => {
       console.log(res);
       this.setState({
-        posts: res.data.data.posts,
+        posts: res.data.posts,
+        ajaxLoaded: true,
       });
     }).catch((err) => console.log(err));
   }
@@ -38,7 +40,7 @@ class Postlist extends Component {
     return (
       <div className="postlist">
         <h2>Posts</h2>
-        {this.state.posts.map((post) => (
+        {this.state.ajaxLoaded && this.state.posts.map((post) => (
           <Post post={post} key={post._id} />
         ))}
       </div>

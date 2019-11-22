@@ -5,7 +5,7 @@ const UserInfo = ({ user, toggleEdit }) => (
   <img src={user.profilePhoto} alt={user.name} />
   <h2>{user.name}</h2>
   <h3 className="profile-user-city">{user.currentCity}</h3>
-  <button onClick={toggleEdit}>Edit</button>
+  <button className="btn btn-primary" onClick={toggleEdit}>Edit</button>
 </div>
 );
 
