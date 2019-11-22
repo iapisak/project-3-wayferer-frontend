@@ -1,0 +1,13 @@
+.city-list{
+    width:40vw;
+}
+.city-card{
+    display:flex;
+    flex-direction: row;
+}
+.city-icon {
+    height:150px;
+    width:200px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
