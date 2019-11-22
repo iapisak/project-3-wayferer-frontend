@@ -1,36 +1,78 @@
 import React, {Component} from 'react'
 import { thisExpression } from '@babel/types'
+import axios from 'axios'
 
 class CreatePost extends Component{
     state={
-        postContent : '',
-        city: '',
         user: '',
-        title: ''
+        data : [],
+        ajaxLoaded : false,
+        postContent : {
+            city: '',
+            id : '',
+            title : '',
+            content : '',
+        }
     }
     dropDownItemHandler = (e)=>{
-        e.preventDefault()
-        console.log(e.target.text)
+        // console.log(e.target.)
+        const optionName = e.target.value.split(',')[1];
+        const optionId = e.target.value.split(',')[0]
+        console.log(optionId,optionName)
         this.setState({
-            city : e.target.text
+            postContent:{
+                city : optionName,
+                id : optionId,
+                title : this.state.postContent.title,
+                content: this.state.postContent.content,
+
+
+            }
         })
     }
     postContentHandler=(e)=>{
         e.preventDefault();
         this.setState({
-            postContent: e.target.value
+            postContent:{
+                city : this.state.postContent.city,
+                id : this.state.postContent.id,
+                title : this.state.postContent.title,
+                content: e.target.value,
+
+            }
         })
         console.log(e.target.value)
     }
     postTitleHandler=(e)=>{
         e.preventDefault()
         this.setState({
-            title: e.target.value
+            postContent:{
+                city : this.state.postContent.city,
+                id : this.state.postContent.id,
+                title: e.target.value,
+                content : this.state.postContent.content
+            }
         })
         console.log(e.target.value)
     }
+    submitHandler=(e)=>{
+        console.log(this.state.postContent)
+    }
+    componentDidMount(){
+        axios.get(
+            `${process.env.REACT_APP_API_URL}/cities`,
+            {withCredentials : true}
+        ).then((res)=>{
+            console.log(res.data.data)
+            this.setState({
+                data : res.data.data,
+                ajaxLoaded: true
+            })
+        })
+    }
 
     render(){
+        console.log(this.state.postContent)
         return(
             <>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
@@ -47,19 +89,12 @@ class CreatePost extends Component{
                                 
                             </div>
                             <div className="modal-body">
-                                <div class="dropdown show">
-                                    <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{width:'200px', margin : '10px 0 0 10px', backgroundColor:'white', color:'black'}}>
-                                        {this.state.city ? this.state.city : "Select City"}
-                                    </a>
-
-                                    <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a className="dropdown-item" onClick={this.dropDownItemHandler}>City 1</a>
-                                        <a className="dropdown-item" onClick={this.dropDownItemHandler}>City 2</a>
-                                        <a className="dropdown-item" onClick={this.dropDownItemHandler}>City 3</a>
-                                        <a className="dropdown-item" onClick={this.dropDownItemHandler}>City 3</a>
-                                        <a className="dropdown-item" onClick={this.dropDownItemHandler}>City 3</a>
-                                        <a className="dropdown-item" onClick={this.dropDownItemHandler}>City 3</a>
-                                    </div>
+                                <div class="dropdown show" style={{margin: '10px 0 5px 10px'}}>
+                                    <select onChange={this.dropDownItemHandler}>
+                                        {this.state.ajaxLoaded && this.state.data.map(data=>{
+                                        return <option value={`${data._id}, ${data.name}`}>{data.name}</option>
+                                        })}
+                                    </select>
                                 </div>
                                 <p style={{margin : '1px 0 0 10px'}}>
                                 Title
@@ -70,7 +105,7 @@ class CreatePost extends Component{
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary">Save changes</button>
+                                <button type="button" className="btn btn-primary" onClick={this.submitHandler}>Submit</button>
                             </div>
                         </div>
                     </div>
