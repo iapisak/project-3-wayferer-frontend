@@ -7,7 +7,7 @@ class CitiesContainer extends Component {
     state = {
         ajaxLoaded: false,
         cities: [],
-        cityPosts: [],
+        posts: [],
         activeCity:""
     };
     componentDidMount() {
@@ -15,11 +15,15 @@ class CitiesContainer extends Component {
             this.setState({cities:cities.data.data});
         });
     }
-    displayPosts = (_id) => {
-        axios.get(`${process.env.REACT_APP_API_URL}/cities/${_id}/posts`)
+    displayPosts = (slug) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/cities/${slug}/posts`)
         .then(posts => {
-            console.log(posts.data.data.posts)
-            this.setState({posts:posts.data.data.posts,ajaxLoaded:true,activeCity:_id})
+            console.log(posts.data.posts)
+            this.setState({
+                posts: posts.data.posts,
+                ajaxLoaded: true,
+                activeCity: slug,
+            });
         })
         .catch(err => {
             console.log(err)
@@ -30,7 +34,8 @@ class CitiesContainer extends Component {
         <>
             <h1>Cities</h1>
             <CityList displayPosts = {this.displayPosts} cities={this.state.cities}/>
-            <CityPosts id={this.state.activeCity} posts={this.state.cityPosts}/>
+            {this.state.ajaxLoaded &&
+                <CityPosts id={this.state.activeCity} posts={this.state.posts}/>}
         </>
             );
     }
