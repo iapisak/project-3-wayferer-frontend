@@ -39,6 +39,30 @@ class PostDetail extends Component {
     })
   };
 
+  displayDeleteModal = () => {
+    return (
+      <div className="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              This will permanently delete this post
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteSelf}>Delete Forever</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   componentDidMount() {
     const postId = this.props.match.params.post_id;
     axios.get(
@@ -61,43 +85,24 @@ class PostDetail extends Component {
         <div className="post-detail-header">
           <h1>{title}</h1>
           {ajaxLoaded &&
+            <div className="post-detail-button-group">
             <EditPost
               post={this.state.post}
               city={this.state.postCity}
-              handleSubmit={this.handleEditSubmit}/>}
-      
-        <div className="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div className="modal-dialog modal-dialog-centered" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                This will permanently delete this post
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteSelf}>Delete Forever</button>
-             </div>
-           </div>
-         </div>
-       </div>
-       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
-         Delete
-       </button>
-     </div>
-    <div>
-      {ajaxLoaded &&
-        <>
-          <p>{this.state.postCity.name}</p>
-          <PostContent content={content}/>
-        </>
-      }
-    </div>
-    </div>
+              handleSubmit={this.handleEditSubmit}/>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
+              Delete
+            </button>
+            {this.displayDeleteModal()}
+            </div>
+          }
+        </div>
+        {ajaxLoaded &&
+          <div>
+            <p>{this.state.postCity.name}</p>
+            <PostContent content={content}/>
+          </div>}
+      </div>
     );
   }
 }
