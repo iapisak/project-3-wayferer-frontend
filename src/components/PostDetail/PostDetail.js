@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+
 import PostContent from '../Profile/Postlist/Post/PostContent';
 import EditPost from './EditPost/EditPost';
 import './PostDetail.css';
@@ -12,6 +14,15 @@ class PostDetail extends Component {
     },
     postCity: { name: 'testtown, USA' },
     ajaxLoaded: false,
+  };
+
+  deleteSelf = (e) => {
+    setTimeout(1000)
+    axios.delete( `${process.env.REACT_APP_API_URL}/posts/${this.state.post._id}/delete`)
+    .then(
+      this.props.history.push('/cities')
+    )
+    .catch(err => console.log(err));
   };
 
   handleEditSubmit = (e, updated) => {
@@ -54,18 +65,40 @@ class PostDetail extends Component {
               post={this.state.post}
               city={this.state.postCity}
               handleSubmit={this.handleEditSubmit}/>}
-        </div>
-        <div>
-          {ajaxLoaded &&
-            <>
-              <p>{this.state.postCity.name}</p>
-              <PostContent content={content}/>
-            </>
-          }
-        </div>
-      </div>
+      
+        <div className="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                This will permanently delete this post
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.deleteSelf}>Delete Forever</button>
+             </div>
+           </div>
+         </div>
+       </div>
+       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
+         Delete
+       </button>
+     </div>
+    <div>
+      {ajaxLoaded &&
+        <>
+          <p>{this.state.postCity.name}</p>
+          <PostContent content={content}/>
+        </>
+      }
+    </div>
     );
   }
 }
 
-export default PostDetail;
+export default withRouter(PostDetail);
