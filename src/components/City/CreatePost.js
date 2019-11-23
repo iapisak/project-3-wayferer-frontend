@@ -7,53 +7,44 @@ class CreatePost extends Component{
         user: '',
         data : [],
         ajaxLoaded : false,
-        postContent : {
-            city: '',
-            slug : '',
-            title : '',
-            content : '',
-        }
+        city: '',
+        slug : '',
+        title : '',
+        content : '',
+       
     }
-    dropDownItemHandler = (e)=>{
+
+        dropDownItemHandler = (e)=>{
         const slug = e.target.value;
-        this.setState({
-            postContent:{
-                slug : slug,
-                title : this.state.postContent.title,
-                content: this.state.postContent.content,
-            }
-        })
+        this.setState({slug : slug})
     }
+            
+                
     postContentHandler=(e)=>{
         e.preventDefault();
-        this.setState({
-            postContent:{
-                city : this.state.postContent.city,
-                slug : this.state.postContent.slug,
-                title : this.state.postContent.title,
-                content: e.target.value,
-            }
-        })
+        this.setState({content: e.target.value})
     }
+            
+              
+            
     postTitleHandler=(e)=>{
         e.preventDefault()
-        this.setState({
-            postContent:{
-                city : this.state.postContent.city,
-                slug : this.state.postContent.slug,
-                title: e.target.value,
-                content : this.state.postContent.content
-            }
-        })
+        this.setState({title: e.target.value})
     }
+                
+                
     submitHandler=(e)=>{
         const userId = localStorage.getItem('uid');
+        const {title,content,city,slug} = this.state
+        const timestamp = new Date().getTime();
+      
         axios.post(
-            `${process.env.REACT_APP_API_URL}/cities/${this.state.postContent.slug}/posts/new`,{
-                title : `${this.state.postContent.title}`,
-                content : `${this.state.postContent.content}`,
-                city : `${this.state.postContent.city}`,
-                user : `${userId}`
+            `${process.env.REACT_APP_API_URL}/cities/${slug}/posts/new`,{
+                title,
+                content,
+                city,
+                timestamp,
+                user :userId
             }
         ).then((res)=>{
             console.log(res)
@@ -66,6 +57,7 @@ class CreatePost extends Component{
         ).then((res)=>{
             this.setState({
                 data : res.data.data,
+                slug:res.data.data[0].slug,
                 ajaxLoaded: true
             })
         })
