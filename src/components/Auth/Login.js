@@ -7,6 +7,7 @@ const initialState = {
     password: '',
     emailError: '',
     passwordError: '',
+    messageError: '',
 }
 
 class Login extends Component {
@@ -17,8 +18,8 @@ class Login extends Component {
         let emailError = ''
         let passwordError = ''
 
-        if (email === '') {
-          emailError = `Please input your Email address`
+        if (email === '' || !email.includes('@')) {
+          emailError = `Invalid email`
         }
 
         if (password === '') {
@@ -40,16 +41,17 @@ class Login extends Component {
         e.preventDefault()
         const formValidation = this.formValidation()
         if (formValidation) {
-            this.setState(initialState)
+            axios.post(`${process.env.REACT_APP_API_URL}/users/login`, this.state, { withCredentials: true })
+            .then((res) => {
+                console.log(res)
+                // this.setState({ })
+                this.props.setCurrentUser(res.data.data.id)
+                this.setState(initialState)
+                this.props.history.push('/profile')
+                this.props.handleModelOnClick()
+            })
+            .catch((err) => console.log(err))
         }
-        //     axios.post(`${process.env.REACT_APP_API_URL}/users/login`, this.state, { withCredentials: true })
-        //     .then((res) => {
-        //         this.props.setCurrentUser(res.data.data.id)
-        //         this.setState({ email: '', password: '' })
-        //         this.props.history.push('/profile')
-        //         this.props.handleModelOnClick()
-        //     })
-        //     .catch((err) => console.log(err))
     }
 
     render () {
