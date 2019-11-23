@@ -14,11 +14,11 @@ const Carousel = () => (
         <span className="sr-only">Next</span>
     </a>
     <div className="carousel-inner">
-      <div className="carousel-item active  bg-dark">
+      <div className="carousel-item active bg-dark">
          CAROUSEL PLACEHOLDER
       </div>
-      <div className="carousel-item">
-        CAROUSEL PLACEHOLDER
+      <div className="carousel-item bg-dark">
+        CAROUSEL PLACEHOLDER 2
       </div>
     </div>
   </div>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Widget } from "@uploadcare/react-widget";
 
 import '../Profile.css';
 
@@ -27,7 +26,7 @@ class ProfileEditForm extends Component {
     return (
       <div className="mt-4 profile-edit">
         {/* <div className="row"> */}
-          <div className="col-md-8 offset-md-2">
+          <div>
             <h4 className="mb-3">Edit your profile</h4>
             <form onSubmit={e=>{e.preventDefault();handleSubmit(this.state)}}>
               <div className="form-group">
@@ -40,11 +39,6 @@ class ProfileEditForm extends Component {
               </div>
               <button className="btn btn-primary float-right" type="submit">Submit</button>
             </form>
-            <Widget
-              publicKey="38e56a09985595f94b66"
-              onChange={pictureUploaded}
-              type="file"
-            />
           </div>
         {/* </div> */}
       </div>
