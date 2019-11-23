@@ -1,31 +1,76 @@
-.profile {
-  display: flex;
+.profile-container {
+  width: 90%;
+  margin: 20px auto;
 }
 
-.profile-user-info,
-.profile-edit {
-  width: 40vw;
-  padding: 20px;
+.profile-user-info {
+  width: 400px;
   text-align: center;
+}
+
+.profile-edit {
+  width: 400px;
+  padding: 20px;
 }
 
 .profile-user-info img {
   width: 100%;
-  max-width: 200px;;
+  height: auto;
 }
 
-.profile-user-city {
-  font-size: 1em;
+.profile-user-info .btn-primary {
+  margin: 10px 0;
+  width: 100%;
 }
 
-.profile-postlist {
-  width: 60vw;
+.postlist {
+  flex: 1;
   padding: 20px;
 }
 
 .post {
-  padding: 5px;
-  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  padding-left: 20px;
   border: 1px solid #a7a7a7;
   border-radius: 10px;
+} 
+
+.image-profile-container {
+  position: relative;
+}
+
+.uploadcare--widget__button {
+  visibility: hidden;
+}
+
+.uploadcare--widget__button:after {
+  content: '\270E'; 
+  visibility: visible;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  font-size: 40px;
+  color:  whitesmoke;
+  text-shadow: 1px 1px #212529;
+  margin: 0;
+  padding: 0;
+}
+
+.image-profile-container .btn-primary {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 1px;
+  margin: 0;
+  background-color: #343a40;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  padding: 10px;
+}
+
+.image-profile-container .btn-primary:hover {
+  color: #343a40;
+  background-color:#6c757d;
 }

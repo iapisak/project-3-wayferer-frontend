@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 import UserInfo from './UserInfo/UserInfo';
 import ProfileEdit from './ProfileEdit/ProfileEdit';
@@ -9,6 +10,7 @@ class Profile extends Component {
   state = {
     editMode: false,
     ajaxLoaded: false,
+    displayComponent: false,
     user: {
         name: 'test user',
         currentCity: 'test city',
@@ -47,8 +49,6 @@ class Profile extends Component {
           user={user}
           handleClick={this.handleClick}
           handleSubmit={this.handleSubmit}
-          pictureUploaded={this.pictureUploaded}
-          fileUploadHandler={this.fileUploadHandler}
         />
       )
     } else {
@@ -56,6 +56,8 @@ class Profile extends Component {
         <UserInfo
           user={user}
           toggleEdit={this.toggleEdit}
+          pictureUploaded={this.pictureUploaded}
+          fileUploadHandler={this.fileUploadHandler}
         />
       );
     }
@@ -66,7 +68,6 @@ class Profile extends Component {
     const {profilePhoto} = this.state.user
     const newUser = {...updated,profilePhoto}
     this.setState({user:newUser})
-
     const userId = localStorage.getItem('uid');
     axios.put(
       `${process.env.REACT_APP_API_URL}/users/${userId}/update`,
@@ -93,33 +94,21 @@ class Profile extends Component {
       {profilePhoto:photoLink}
     ).then((res)=>{
       console.log(res)
+      window.location.reload(); 
+      // this.props.history.push('/')
     }).catch((err)=>{
       console.log(err)
     });
   }
 
-  fileUploadHandler=(event)=>{
-    console.log("button working")
-    const photoLink = this.state.user.profilePhoto
-    event.preventDefault()
-    const userId = localStorage.getItem('uid');
-    axios.put(`${process.env.REACT_APP_API_URL}/users/${userId}/update`,{profilePhoto:photoLink}).then((res)=>{
-      console.log(res)
-    }).catch((err)=>{
-      console.log(err)
-    })
-  }
-
   render() {
     return (
-      <div className="profile">
+      <div className="profile-container row">
         {this.displayUserInfo()}
-        <div className="profile-postlist">
           <Postlist />
-        </div>
       </div>
     );
   }
 }
 
-export default Profile;
+export default withRouter(Profile);
