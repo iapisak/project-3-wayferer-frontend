@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 const Post = ({ post }) => {
   const postLink = `/posts/${post._id}`;
   return (
-    <Link to={postLink}>
+    
       <div className="post">
+        <Link to={postLink}>
         <h4>{post.title}</h4>
+        </Link>
         <p>{post.content}</p>
       </div>
-    </Link>
+    
   );
 };
 
