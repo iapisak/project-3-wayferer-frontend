@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CityList from './CityList'
-import CityPosts from './CityPosts'
+import CityDetail from './CityDetail'
 import CreatePost from './CreatePost'
 import './City.css'
 class CitiesContainer extends Component {
@@ -16,8 +16,8 @@ class CitiesContainer extends Component {
             this.setState({cities:cities.data.data});
         });
     }
-    displayPosts = (slug) => {
-        axios.get(`${process.env.REACT_APP_API_URL}/cities/${slug}/posts`)
+    displayPosts = (city) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/cities/${city.slug}/posts`)
         .then(posts => {
             posts = posts.data.posts.sort((post1,post2) => {
                 return post1.timestamp.getTime() > post2.timestamp.getTime()
@@ -25,7 +25,7 @@ class CitiesContainer extends Component {
             this.setState({
                 posts: posts,
                 ajaxLoaded: true,
-                activeCity: slug,
+                activeCity: city,
             });
         })
         .catch(err => {
@@ -39,7 +39,7 @@ class CitiesContainer extends Component {
             <CreatePost/>
             <CityList displayPosts = {this.displayPosts} cities={this.state.cities}/>
             {this.state.ajaxLoaded &&
-                <CityPosts id={this.state.activeCity} posts={this.state.posts}/>}
+                <CityDetail city={this.state.activeCity} posts={this.state.posts}/>}
         </>
             
            
