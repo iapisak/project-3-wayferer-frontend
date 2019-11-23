@@ -36,11 +36,14 @@ class CreatePost extends Component{
     submitHandler=(e)=>{
         const userId = localStorage.getItem('uid');
         const {title,content,city,slug} = this.state
+        const timestamp = new Date().getTime();
+      
         axios.post(
             `${process.env.REACT_APP_API_URL}/cities/${slug}/posts/new`,{
                 title,
                 content,
                 city,
+                timestamp,
                 user :userId
             }
         ).then((res)=>{
