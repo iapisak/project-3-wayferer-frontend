@@ -57,6 +57,7 @@ class CreatePost extends Component{
         ).then((res)=>{
             this.setState({
                 data : res.data.data,
+                slug:res.data.data[0].slug,
                 ajaxLoaded: true
             })
         })
