@@ -19,9 +19,11 @@ class CitiesContainer extends Component {
     displayPosts = (slug) => {
         axios.get(`${process.env.REACT_APP_API_URL}/cities/${slug}/posts`)
         .then(posts => {
-            console.log(posts.data.posts)
+            posts = posts.data.posts.sort((post1,post2) => {
+                return post1.timestamp.getTime() > post2.timestamp.getTime()
+            })
             this.setState({
-                posts: posts.data.posts,
+                posts: posts,
                 ajaxLoaded: true,
                 activeCity: slug,
             });

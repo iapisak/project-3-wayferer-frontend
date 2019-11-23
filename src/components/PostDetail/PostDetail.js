@@ -97,6 +97,7 @@ class PostDetail extends Component {
         </>
       }
     </div>
+    </div>
     );
   }
 }
