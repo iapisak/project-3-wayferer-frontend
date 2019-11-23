@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 class PostContent extends Component{
   state = {
-      content: '',
       expanded: false,
   }
 
@@ -12,21 +11,18 @@ class PostContent extends Component{
     }));
   }
 
-  componentDidMount(){
-    this.setState({content:this.props.content})
-  }
-
   render(){
+    const { content } = this.props;
     return(
       <div>
           <p>
             {this.state.expanded
             ?
-            this.state.content
+            content
             :
-            this.state.content.substring(0,1000)}
+            content.substring(0,1000)}
           </p>
-          {this.state.length > 1000 && <button onClick={this.handleClick}>
+          {content.length > 1000 && <button onClick={this.handleClick}>
             {this.state.expanded ? 'See Less' : 'See More'}
           </button>}
       </div>
