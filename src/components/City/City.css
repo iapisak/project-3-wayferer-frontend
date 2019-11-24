@@ -1,10 +1,10 @@
 .city-home {
     display: flex;
+    background: #f7f7f7;
 }
 
 .city-detail {
     margin: 0 auto;
-    background: #f7f7f7;
 }
 
 .city-list-container {
