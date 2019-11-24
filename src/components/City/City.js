@@ -3,9 +3,9 @@ import React from 'react'
 const City = (props) => {
 
     return(
-        <div onClick = {e => {props.displayPosts(props.city.slug) }}className="city-card">
-            <div className="city-icon" style ={{ backgroundImage:`url(${props.city.photo})`}}/>
-            <h3>{props.city.name}</h3>
+        <div onClick = {e => {props.displayPosts(props.city) }}className="city-card">
+            <img src={props.city.photo} className="city-icon" />
+            <h2 className="city-list-name">{props.city.name}</h2>
         </div>
     )
 }
