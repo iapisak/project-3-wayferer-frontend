@@ -30,7 +30,7 @@ class CityPosts extends Component {
         })}
         <button onClick={this.decrementPage}>-</button>
         <button onClick={this.incrementPage}>+</button>
-        
+
 
       </div>
     );

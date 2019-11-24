@@ -94,7 +94,7 @@ class Profile extends Component {
       {profilePhoto:photoLink}
     ).then((res)=>{
       console.log(res)
-      window.location.reload(); 
+      window.location.reload();
       // this.props.history.push('/')
     }).catch((err)=>{
       console.log(err)
@@ -103,10 +103,12 @@ class Profile extends Component {
 
   render() {
     return (
-      <div className="profile-container row">
-        {this.displayUserInfo()}
-          <Postlist />
-      </div>
+      <main className="main-home-page">
+        <div className="profile-container row">
+          {this.displayUserInfo()}
+            <Postlist />
+        </div>
+      </main>
     );
   }
 }

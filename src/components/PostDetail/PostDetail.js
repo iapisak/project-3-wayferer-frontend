@@ -81,28 +81,30 @@ class PostDetail extends Component {
     const { title, content } = this.state.post;
     const { ajaxLoaded } = this.state;
     return (
-      <div className="container">
-        <div className="post-detail-header">
-          <h1>{title}</h1>
+      <main className="main-home-page">
+        <div className="container">
+          <div className="post-detail-header">
+            <h1>{title}</h1>
+            {ajaxLoaded &&
+              <div className="post-detail-button-group">
+              <EditPost
+                post={this.state.post}
+                city={this.state.postCity}
+                handleSubmit={this.handleEditSubmit}/>
+              <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
+                Delete
+              </button>
+              {this.displayDeleteModal()}
+              </div>
+            }
+          </div>
           {ajaxLoaded &&
-            <div className="post-detail-button-group">
-            <EditPost
-              post={this.state.post}
-              city={this.state.postCity}
-              handleSubmit={this.handleEditSubmit}/>
-            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
-              Delete
-            </button>
-            {this.displayDeleteModal()}
-            </div>
-          }
+            <div>
+              <p>{this.state.postCity.name}</p>
+              <PostContent content={content}/>
+            </div>}
         </div>
-        {ajaxLoaded &&
-          <div>
-            <p>{this.state.postCity.name}</p>
-            <PostContent content={content}/>
-          </div>}
-      </div>
+      </main>
     );
   }
 }

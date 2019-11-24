@@ -34,7 +34,7 @@ class Home extends Component {
           </a>
           <div className="carousel-inner">
             <div className="carousel-item active bg-dark" style={{ backgroundImage:`url('https://loving-newyork.com/wp-content/uploads/2019/09/fun-things-to-do-in-nyc-at-night-160914155540002-1920x960.jpg` }}>
-              <h1>Welcome to Warferer</h1>
+              <h1>Welcome to Wayfarer</h1>
             </div>
             {this.state.cityPhoto.map((list) => (
               <Carousel photo={list.photo} key={list._id} name={list.name} />

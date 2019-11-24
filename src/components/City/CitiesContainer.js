@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CityList from './CityList';
-import CityRoutes from '../../config/CityRoutes';
+import CityDetail from './CityDetail';
 import './City.css';
 
 class CitiesContainer extends Component {
