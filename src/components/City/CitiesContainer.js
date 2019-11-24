@@ -9,6 +9,7 @@ class CitiesContainer extends Component {
         ajaxLoaded: false,
         cities: [],
         posts: [],
+        page:0,
         activeCity:""
     };
 
@@ -41,6 +42,7 @@ class CitiesContainer extends Component {
             this.setState({cities:cities.data.data});
         });
     }
+    
     displayPosts = (city) => {
         axios.get(`${process.env.REACT_APP_API_URL}/cities/${city.slug}/posts`)
         .then(posts => {
