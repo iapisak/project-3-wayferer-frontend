@@ -13,8 +13,10 @@ class CreatePost extends Component{
   };
 
   dropDownItemHandler = (e) => {
-    const slug = e.target.value.slug;
-    const cityId = e.target.value._id;
+    const citiesList = this.state.citiesList;
+    const index = e.target.value;
+    const slug = citiesList[index].slug;
+    const cityId = citiesList[index]._id;
     this.setState({
       slug,
       cityId,
@@ -79,8 +81,8 @@ class CreatePost extends Component{
                   <div className="dropdown show" style={{margin: '10px 0 5px 10px'}}>
                     <select onChange={this.dropDownItemHandler}>
                       {ajaxLoaded &&
-                        this.state.citiesList.map(data=>{
-                          return <option value={data} key={data._id}>{data.name}</option>
+                        this.state.citiesList.map((data, index) =>{
+                          return <option value={index} key={data._id}>{data.name}</option>
                       })}}
                     </select>
                   </div>
