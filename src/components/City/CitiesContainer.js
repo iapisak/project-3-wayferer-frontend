@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CityList from './CityList';
-import CityDetail from './CityDetail';
+import CityRoutes from '../../config/CityRoutes';
 import './City.css';
 
 class CitiesContainer extends Component {
@@ -65,7 +65,7 @@ class CitiesContainer extends Component {
                 <CityList displayPosts = {this.displayPosts} cities={this.state.cities}/>
             </div>
             {this.state.ajaxLoaded &&
-                <CityDetail
+                <CityRoutes
                     city={this.state.activeCity}
                     posts={this.state.posts}
                     handleSubmit={this.handleCreateSubmit}
