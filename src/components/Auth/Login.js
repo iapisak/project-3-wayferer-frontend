@@ -20,6 +20,7 @@ class Login extends Component {
 
         if (email === '' || !email.includes('@')) {
           emailError = `Invalid email`
+          
         }
 
         if (password === '') {
@@ -31,7 +32,7 @@ class Login extends Component {
           return false
         }
         return true
-      }
+    }
 
     handleOnChange = e => {
         this.setState({ [e.target.name]: e.target.value})
@@ -43,8 +44,6 @@ class Login extends Component {
         if (formValidation) {
             axios.post(`${process.env.REACT_APP_API_URL}/users/login`, this.state, { withCredentials: true })
             .then((res) => {
-                console.log(res)
-                // this.setState({ })
                 this.props.setCurrentUser(res.data.data.id)
                 this.setState(initialState)
                 this.props.history.push('/profile')
@@ -72,12 +71,14 @@ class Login extends Component {
                         <div className="form-label-group">
                             <label htmlFor="inputEmail">Email address</label>
                             <input onChange={ this.handleOnChange } type="text" name='email' id="inputEmail" className="form-control"  value={this.state.email} />
-                            <div className="alert">{emailError}</div>
+                            <div className='alert'>{emailError}</div>
+                            
                         </div>
                         <div className="form-label-group">
                             <label htmlFor="inputPassword">Password</label>
                             <input onChange={ this.handleOnChange } type="password" name='password' id="inputPassword" className="form-control" value={ this.state.password } />
-                            <div className="alert">{passwordError}</div>
+                            <div className='alert'>{passwordError}</div>
+                            
                         </div>
                         <div className="modal-footer">
                             <button type="submit" className="btn btn-primary">Log in</button>

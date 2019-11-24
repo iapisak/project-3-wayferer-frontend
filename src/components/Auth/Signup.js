@@ -8,6 +8,7 @@ const initialState = {
     currentCity: '',
     password: '',
     password2: '',
+    // alert: 'false',
     
     nameError: '',
     emailError: '',
@@ -20,7 +21,7 @@ class Signup extends Component {
   state = initialState;
 
   formValidation = () => {
-    const { email, name, currentCity, password, password2 } = this.state
+    const { email, name, password, password2 } = this.state
 
     let nameError = ''
     let emailError = ''
@@ -58,6 +59,7 @@ class Signup extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const formValidation = this.formValidation()
+
     if (formValidation) {
       
     
@@ -101,27 +103,27 @@ class Signup extends Component {
               <div className="form-group">
                 <label htmlFor="name">Name</label>
                 <input onChange={this.handleChange} className="form-control form-control-lg" type="text" id="name" name="name" value={this.state.name} />
-                <div className="alert">{nameError}</div>
+                <div className='alert'>{nameError}</div>
               </div>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input onChange={this.handleChange} className="form-control form-control-lg" type="text" id="email" name="email" value={this.state.email} />
-                <div className="alert">{emailError}</div>
+                <div className='alert'>{emailError}</div>
               </div>
               <div className="form-group">
                 <label htmlFor="currentCity">Current City</label>
                 <input onChange={this.handleChange} className="form-control form-control-lg" type="text" id="currentCity" name="currentCity" value={this.state.currentCity} />
-                <div className="alert">{currentCityError}</div>
+                <div className='alert'>{currentCityError}</div>
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input onChange={this.handleChange} className="form-control form-control-lg" type="password" id="password" name="password" value={this.state.password} />
-                <div className="alert">{passwordError}</div>
+                <div className='alert'>{passwordError}</div>
               </div>
               <div className="form-group">
                 <label htmlFor="password2">Confirm Password</label>
                 <input onChange={this.handleChange} className="form-control form-control-lg" type="password" id="password2" name="password2" value={this.state.password2} />
-                <div className="alert">{password2Error}</div>
+                <div className='alert'>{password2Error}</div>
               </div>
               <button className="btn btn-primary float-right" type="submit">Sign up</button>
             </form>

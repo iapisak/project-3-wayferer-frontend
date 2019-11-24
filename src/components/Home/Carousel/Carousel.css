@@ -1,8 +1,19 @@
-.carousel {
-  margin: 20px 0;
+.carousel-item {
+  position: relative;
+  height: 60vh;
+  font-size: 50px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 
-.carousel-item {
-  height: 40vh;
-  font-size: 50px;
+.carousel-item h1 {
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  color: whitesmoke;
+  font-weight: 500;
+  font-size: 130%;
+  text-shadow: 1px 1px #999595;
 }
