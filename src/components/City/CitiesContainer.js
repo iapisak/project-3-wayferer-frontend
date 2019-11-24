@@ -59,18 +59,20 @@ class CitiesContainer extends Component {
     }
     render() {
         return (
-        <div className="city-home">
-            <div className="city-list-container">
-                <h1>Cities</h1>
-                <CityList displayPosts = {this.displayPosts} cities={this.state.cities}/>
-            </div>
-            {this.state.ajaxLoaded &&
-                <CityDetail
-                    city={this.state.activeCity}
-                    posts={this.state.posts}
-                    handleSubmit={this.handleCreateSubmit}
-                />}
-        </div>
+            <main className='main-home-page'>
+                <div className="city-home">
+                    <div className="city-list-container">
+                        <h1>Cities</h1>
+                        <CityList displayPosts = {this.displayPosts} cities={this.state.cities}/>
+                    </div>
+                    {this.state.ajaxLoaded &&
+                        <CityDetail
+                            city={this.state.activeCity}
+                            posts={this.state.posts}
+                            handleSubmit={this.handleCreateSubmit}
+                        />}
+                </div>
+            </main>
 
 
 

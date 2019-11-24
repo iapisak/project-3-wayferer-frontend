@@ -22,7 +22,7 @@ class Home extends Component {
 
   render() {
     return (
-      <main>
+      <main className='main-home-page'>
         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
           <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
               <span className="carousel-control-prev-icon" aria-hidden="true"></span>
