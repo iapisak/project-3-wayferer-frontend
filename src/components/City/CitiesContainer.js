@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import CityList from './CityList'
-import CityDetail from './CityDetail'
-import CreatePost from './CreatePost'
-import './City.css'
+import CityList from './CityList';
+import CityDetail from './CityDetail';
+import './City.css';
+
 class CitiesContainer extends Component {
     state = {
         ajaxLoaded: false,
@@ -59,13 +59,18 @@ class CitiesContainer extends Component {
     }
     render() {
         return (
-        <>
-            <h1>Cities</h1>
-            <CreatePost handleSubmit={this.handleCreateSubmit}/>
-            <CityList displayPosts = {this.displayPosts} cities={this.state.cities}/>
+        <div className="city-home">
+            <div className="city-list-container">
+                <h1>Cities</h1>
+                <CityList displayPosts = {this.displayPosts} cities={this.state.cities}/>
+            </div>
             {this.state.ajaxLoaded &&
-                <CityDetail city={this.state.activeCity} posts={this.state.posts}/>}
-        </>
+                <CityDetail
+                    city={this.state.activeCity}
+                    posts={this.state.posts}
+                    handleSubmit={this.handleCreateSubmit}
+                />}
+        </div>
 
 
 
