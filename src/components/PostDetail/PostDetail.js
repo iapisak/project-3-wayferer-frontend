@@ -20,7 +20,7 @@ class PostDetail extends Component {
     setTimeout(1000)
     axios.delete( `${process.env.REACT_APP_API_URL}/posts/${this.state.post._id}/delete`)
     .then(
-      this.props.history.push('/cities')
+      this.props.history.push('/')
     )
     .catch(err => console.log(err));
   };
