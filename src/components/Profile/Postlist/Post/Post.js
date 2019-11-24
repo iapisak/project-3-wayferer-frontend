@@ -9,7 +9,7 @@ const Post = ({ post }) => {
         <Link to={postLink}>
         <h4>{post.title}</h4>
         </Link>
-        <p>{post.content}</p>
+  <p>{post.content.substring(0,90)}{post.content.length > 90 && '...'}</p>
       </div>
     
   );
