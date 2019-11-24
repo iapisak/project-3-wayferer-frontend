@@ -55,7 +55,7 @@ class Navbars extends Component {
   render() {
     return (
       <>
-        <nav className="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-md fixed-top navbar-dark bg-dark local-nav">
           <div className="container">
             <Link className="navbar-brand" to="/">WAYFARER</Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
