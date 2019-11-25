@@ -1,11 +1,12 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import CityDetail from '../components/City/CityDetail';
 
 export default (props) => {
   return (
     <Switch>
+      <Redirect exact from='/' to='/san-francisco' />
       <Route
         path="/:city_slug"
         render={() => (
