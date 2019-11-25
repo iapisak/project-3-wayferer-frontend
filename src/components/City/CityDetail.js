@@ -6,7 +6,7 @@ class CityDetail extends Component {
   state = {
     posts: [],
     ajaxLoaded: false,
-    activeCity: {},
+    activeCity: this.props.city,
   };
 
   fetchPosts = () => {
@@ -39,6 +39,7 @@ class CityDetail extends Component {
         user :userId,
       }
     ).then((res)=>{
+        if(res.data.data.city === this.props.city._id){
         const newPosts = this.state.posts.concat(res.data.data);
         newPosts.sort((post1, post2) => {
             return new Date(post2.timestamp) - new Date(post1.timestamp);
@@ -46,7 +47,7 @@ class CityDetail extends Component {
         this.setState({
             posts: newPosts,
         });
-    })
+    }})
   }
 
   componentDidMount() {
