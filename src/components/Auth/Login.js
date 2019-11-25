@@ -18,13 +18,14 @@ class Login extends Component {
         let emailError = ''
         let passwordError = ''
 
-        if (email === '' || !email.includes('@')) {
-          emailError = `Invalid email`
-          
+        if (email === '') {
+            emailError = `Please input your Email`
+        } else if (email !== '' && !email.includes('@')) {
+            emailError = `Email must includes '@'`
         }
-
+        
         if (password === '') {
-          passwordError = `Please input your Password`
+            passwordError = `Please input your Password`
         }
 
         if (emailError || passwordError) {
@@ -49,7 +50,7 @@ class Login extends Component {
                 this.props.history.push('/profile')
                 this.props.handleModelOnClick()
             })
-            .catch((err) => console.log(err))
+            .catch((err) => this.setState({passwordError: `Invalid password`}))
         }
     }
 

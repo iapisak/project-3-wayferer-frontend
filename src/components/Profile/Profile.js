@@ -103,10 +103,12 @@ class Profile extends Component {
 
   render() {
     return (
-      <div className="profile-container row">
-        {this.displayUserInfo()}
-          <Postlist />
-      </div>
+      <main className='main-home-page'>
+        <div className="profile-container row">
+          {this.displayUserInfo()}
+            <Postlist />
+        </div>
+      </main>
     );
   }
 }

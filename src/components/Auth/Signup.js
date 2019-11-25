@@ -8,7 +8,6 @@ const initialState = {
     currentCity: '',
     password: '',
     password2: '',
-    // alert: 'false',
     
     nameError: '',
     emailError: '',
@@ -29,19 +28,27 @@ class Signup extends Component {
     let passwordError = ''
     let password2Error = ''
 
-    if (name.length < 3 && name !== Number ) {
+    if (name === '') {
+      nameError = `This field can not be empty`
+    } else if (name.length < 3 && name !== Number ) {
       nameError = `Name must be at least 3 characters`
     }
 
-    if (!email.includes('@')) {
-      emailError = `Email must include '@'`
+    if (email === '') {
+      emailError = `This field can not be empty`
+    } else if (email !== '' && !email.includes('@')) {
+        emailError = `Email must includes '@'`
     }
 
-    if (password.length < 6) {
-      passwordError = `Password must be at least 6 characters`
+    if (password === '') {
+      passwordError = `This field can not be empty`
+    } else if (password.length < 5) {
+      passwordError = `Your password is too weak. Please try again`
     }
 
-    if (password !== password2) {
+    if (password2 === '') {
+      password2Error = `This field can not be empty`
+    } else if (password !== password2) {
       password2Error = `Please confirm your password again`
     }
 
@@ -61,28 +68,28 @@ class Signup extends Component {
     const formValidation = this.formValidation()
 
     if (formValidation) {
-      
-    
       axios.post(
         `${process.env.REACT_APP_API_URL}/users/create`,
         this.state
       ).then((res) => {
-        
-        const template_params = {
-          "reply_to": this.state.email,
-          "from_name": "WayFarer-SF",
-          "to_name": this.state.name,
-          "message_html": "Congratulations, you have signed up for wayfarer-SF, we hope you find our products useful."
+        if (res.data.status === 201) {
+          const template_params = {
+            "reply_to": this.state.email,
+            "from_name": "WayFarer-SF",
+            "to_name": this.state.name,
+            "message_html": "Congratulations, you have signed up for wayfarer-SF, we hope you find our products useful."
+          }
+      
+          const service_id = "default_service";
+          const template_id = "template_GK77suy2";
+          const user_id = "user_ctGR62rF5nLViffjCQ1A8"
+          emailjs.send(service_id, template_id,template_params, user_id);
+          this.setState(initialState)
+          this.props.handleModelOnClickSignup()
+        } else {
+          this.setState({ emailError: `Invalid Email, Please try again`})
         }
-    
-        const service_id = "default_service";
-        const template_id = "template_GK77suy2";
-        const user_id = "user_ctGR62rF5nLViffjCQ1A8"
-        emailjs.send(service_id, template_id,template_params, user_id);
-        this.setState(initialState)
-        this.props.handleModelOnClickSignup()
-        
-      }).catch((err) => console.log(err));
+      }).catch((err) => this.setState({ emailError: `Invalid Email, Please try again`}));
     }
   };
 
