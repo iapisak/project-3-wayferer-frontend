@@ -37,6 +37,9 @@ class CityDetail extends Component {
         ...newPost,
         timestamp,
         user :userId,
+      },
+      {
+        withCredentials: true
       }
     ).then((res)=>{
         const newPosts = this.state.posts.concat(res.data.data);

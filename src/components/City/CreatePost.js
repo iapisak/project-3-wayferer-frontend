@@ -65,7 +65,7 @@ class CreatePost extends Component{
     if(this.state.intitalSlug !== this.props.city.slug)
     this.setState({
       intitalSlug:this.props.city.slug,
-      changed:false,
+      dropdownSlug:this.props.city.slug
     })
   } 
 
@@ -80,7 +80,7 @@ class CreatePost extends Component{
         content: this.state.content,
         city: city._id,
       };
-      this.props.handleSubmit(e, newPost, city.slug);
+      this.props.handleSubmit(e, newPost, this.state.dropdownSlug);
 
       this.setState({
         title: '',
@@ -116,7 +116,7 @@ class CreatePost extends Component{
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <select id="city-select" onChange={this.handleDropdown} value={this.state.changed ? this.state.dropdownSlug : this.state.intitalSlug}>
+                <select id="city-select" onChange={this.handleDropdown} value={this.state.dropdownSlug}>
                  {this.props.cities.map(city=>{
                 return <option value={city.slug}>{city.name}</option>
                  })}
