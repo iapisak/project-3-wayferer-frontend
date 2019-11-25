@@ -26,7 +26,6 @@ class CitiesContainer extends Component {
             user :userId,
           }
         ).then((res)=>{
-            console.log(res);
             const newPosts = this.state.posts.concat(res.data.data);
             newPosts.sort((post1, post2) => {
                 return new Date(post2.timestamp) - new Date(post1.timestamp);
@@ -42,7 +41,7 @@ class CitiesContainer extends Component {
             this.setState({cities:cities.data.data});
         });
     }
-    
+
     displayPosts = (city) => {
         axios.get(`${process.env.REACT_APP_API_URL}/cities/${city.slug}/posts`)
         .then(posts => {
@@ -75,10 +74,7 @@ class CitiesContainer extends Component {
                         />}
                 </div>
             </main>
-
-
-
-            );
+        );
     }
 }
 

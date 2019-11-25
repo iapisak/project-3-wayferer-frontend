@@ -1,27 +1,10 @@
-import React, {Component} from 'react'
-import axios from 'axios'
+import React, {Component} from 'react';
 
 class CreatePost extends Component{
-  state={
-    user: '',
-    citiesList : [],
-    ajaxLoaded : false,
-    cityId: '',
-    slug : '',
+  state = {
     title : '',
     content : '',
   };
-
-  dropDownItemHandler = (e) => {
-    const citiesList = this.state.citiesList;
-    const index = e.target.value;
-    const slug = citiesList[index].slug;
-    const cityId = citiesList[index]._id;
-    this.setState({
-      slug,
-      cityId,
-    });
-  }
 
   handleChange = (e) => {
     this.setState({
@@ -29,26 +12,23 @@ class CreatePost extends Component{
     })
   }
 
-  componentDidMount(){
-    axios.get(
-      `${process.env.REACT_APP_API_URL}/cities`,
-      {withCredentials : true}
-    ).then((res)=>{
-      this.setState({
-        citiesList: res.data.data,
-        slug: res.data.data[0].slug,
-        ajaxLoaded: true,
-      })
-    })
-  }
-
-  render(){
-    const { ajaxLoaded, slug } = this.state;
+  handleClick = (e) => {
+    const { city } = this.props;
     const newPost = {
       title: this.state.title,
       content: this.state.content,
-      city: this.state.cityId,
-    }
+      city: city._id,
+    };
+    this.props.handleSubmit(e, newPost, city.slug);
+
+    this.setState({
+      title: '',
+      content: '',
+    });
+  }
+
+  render(){
+    const { city } = this.props;
     return (
       <>
         <button
@@ -71,21 +51,13 @@ class CreatePost extends Component{
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                Create a post
+                {`Create a post for ${city.name}`}
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <form>
                 <div className="modal-body">
-                  <div className="dropdown show" style={{margin: '10px 0 5px 10px'}}>
-                    <select onChange={this.dropDownItemHandler}>
-                      {ajaxLoaded &&
-                        this.state.citiesList.map((data, index) =>{
-                          return <option value={index} key={data._id}>{data.name}</option>
-                      })}}
-                    </select>
-                  </div>
                   <label htmlFor="postTitle" style={{margin : '1px 0 0 10px'}}>
                     Title
                   </label>
@@ -107,7 +79,7 @@ class CreatePost extends Component{
                 <div className="modal-footer">
                   <button
                     type="submit"
-                    onClick={(e) => this.props.handleSubmit(e, newPost, slug)}
+                    onClick={this.handleClick}
                     className="btn btn-primary"
                     data-dismiss="modal"
                   >Submit</button>
@@ -121,4 +93,4 @@ class CreatePost extends Component{
     }
 }
 
-export default CreatePost
+export default CreatePost;
