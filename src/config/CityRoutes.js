@@ -11,6 +11,7 @@ export default (props) => {
         render={() => (
           <CityDetail
             city={props.city}
+            cities={props.cities}
           />
         )}
       />
