@@ -26,11 +26,16 @@ class CityPosts extends Component {
           <CreatePost
             city={this.props.city}
             cities = {this.props.cities}
-            handleSubmit={this.props.handleSubmit}
+            handleSubmit={this.props.handleCreateSubmit}
           />
         </div>
         {this.calculatePage().map(post => {
-          return <Post post={post} key={post._id}/>
+          return (
+            <Post
+              post={post}
+              key={post._id}
+              handleEditSubmit={this.props.handleEditSubmit}/>
+          );
         })}
         <button onClick={this.decrementPage}>-</button>
         <button onClick={this.incrementPage}>+</button>

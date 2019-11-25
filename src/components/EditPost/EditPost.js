@@ -21,15 +21,6 @@ class EditPost extends Component {
 
     return (
     <>
-      <button
-        type="button"
-        className="btn btn-primary"
-        data-toggle="modal"
-        data-target="#editPost"
-      >
-        Edit post
-      </button>
-
       <div
         className="modal fade"
         id="editPost"
