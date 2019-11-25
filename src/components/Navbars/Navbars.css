@@ -32,7 +32,8 @@
 #logo {
   color: #FFEB7F;
   font-size: 1.3em;
-  letter-spacing: 0.25em;
+  font-family: "Raleway", sans-serif;
+  letter-spacing: 0.2em;
 }
 
 .local-nav{

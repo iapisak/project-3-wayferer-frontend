@@ -21,7 +21,7 @@ class PostDetail extends Component {
     const userId = localStorage.getItem('uid');
     axios.delete( `${process.env.REACT_APP_API_URL}/posts/${this.state.post._id}/delete/${userId}`)
     .then(
-      this.props.history.push('/cities')
+      this.props.history.push('/')
     )
     .catch(err => console.log(err));
   };
@@ -82,28 +82,36 @@ class PostDetail extends Component {
     const { title, content } = this.state.post;
     const { ajaxLoaded } = this.state;
     return (
+<<<<<<< HEAD
       <div className="main-home-page container">
         <div className="post-detail-header">
           <h1>{title}</h1>
+=======
+      <main className="main-home-page">
+        <div className="container">
+          <div className="post-detail-header">
+            <h1>{title}</h1>
+            {ajaxLoaded &&
+              <div className="post-detail-button-group">
+              <EditPost
+                post={this.state.post}
+                city={this.state.postCity}
+                handleSubmit={this.handleEditSubmit}/>
+              <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
+                Delete
+              </button>
+              {this.displayDeleteModal()}
+              </div>
+            }
+          </div>
+>>>>>>> cf684cf92f51fe19ecf7f9432beee70f7fa66c74
           {ajaxLoaded &&
-            <div className="post-detail-button-group">
-            <EditPost
-              post={this.state.post}
-              city={this.state.postCity}
-              handleSubmit={this.handleEditSubmit}/>
-            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
-              Delete
-            </button>
-            {this.displayDeleteModal()}
-            </div>
-          }
+            <div>
+              <p>{this.state.postCity.name}</p>
+              <PostContent content={content}/>
+            </div>}
         </div>
-        {ajaxLoaded &&
-          <div>
-            <p>{this.state.postCity.name}</p>
-            <PostContent content={content}/>
-          </div>}
-      </div>
+      </main>
     );
   }
 }
