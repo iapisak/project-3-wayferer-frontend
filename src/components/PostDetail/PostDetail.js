@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import PostContent from '../Profile/Postlist/Post/PostContent';
-import EditPost from './EditPost/EditPost';
+import EditPost from '../EditPost/EditPost';
 import './PostDetail.css';
 
 class PostDetail extends Component {
@@ -24,22 +24,6 @@ class PostDetail extends Component {
       this.props.history.push('/')
     )
     .catch(err => console.log(err));
-  };
-
-  handleEditSubmit = (e, updated) => {
-    e.preventDefault();
-    updated.user = localStorage.getItem('uid');
-    console.log(updated)
-    const postId = this.state.post._id;
-    axios.put(
-      `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
-      updated
-    ).then((res) => {
-      console.log(res)
-      this.setState({
-        post: res.data.data,
-      });
-    })
   };
 
   displayDeleteModal = () => {
@@ -65,6 +49,22 @@ class PostDetail extends Component {
       </div>
     );
   }
+
+  handleEditSubmit = (e, updated) => {
+    e.preventDefault();
+    updated.user = localStorage.getItem('uid');
+    console.log(updated)
+    const postId = this.state.post._id;
+    axios.put(
+      `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
+      updated
+    ).then((res) => {
+      console.log(res)
+      this.setState({
+        post: res.data.data,
+      });
+    })
+  };
 
   componentDidMount() {
     const postId = this.props.match.params.post_id;

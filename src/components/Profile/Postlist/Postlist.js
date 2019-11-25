@@ -6,6 +6,7 @@ import Post from './Post/Post';
 class Postlist extends Component {
   state = {
     ajaxLoaded: false,
+    edited: false,
     posts: [
       {
         title: 'fake1',
@@ -20,9 +21,26 @@ class Postlist extends Component {
         content: 'fake content'
       },
     ],
-  }
+  };
 
-  componentDidMount() {
+  handlePostEditSubmit = (e, updated) => {
+    e.preventDefault();
+    updated.user = localStorage.getItem('uid');
+    console.log(updated)
+    const postId = updated._id;
+    axios.put(
+      `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
+      updated
+    ).then((res) => {
+      console.log(res)
+      this.setState(prevState => ({
+        edited: true,
+        ajaxLoaded: true,
+      }));
+    })
+  };
+
+  fetchPosts = () => {
     const userId = localStorage.getItem('uid');
     axios.get(
       `${process.env.REACT_APP_API_URL}/users/${userId}/posts`,
@@ -36,6 +54,19 @@ class Postlist extends Component {
         ajaxLoaded: true,
       });
     }).catch((err) => console.log(err));
+  };
+
+  componentDidMount() {
+    this.fetchPosts();
+  }
+
+  componentDidUpdate() {
+    if (this.state.edited) {
+      this.fetchPosts();
+      this.setState({
+        edited: false,
+      })
+    }
   }
 
   render() {
@@ -43,7 +74,11 @@ class Postlist extends Component {
       <div className="postlist">
         <h2>Posts</h2>
         {this.state.ajaxLoaded && this.state.posts.map((post) => (
-          <Post post={post} key={post._id} />
+          <Post
+            post={post}
+            key={post._id}
+            handleEditSubmit={this.handlePostEditSubmit}
+          />
         ))}
       </div>
     );
