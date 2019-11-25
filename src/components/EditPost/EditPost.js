@@ -7,6 +7,7 @@ class EditPost extends Component {
   };
 
   handleChange = (e) => {
+    console.log(this)
     this.setState({
       [e.target.name]: e.target.value,
     })
