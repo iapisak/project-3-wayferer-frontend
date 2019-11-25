@@ -1,10 +1,9 @@
 import React from 'react';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import CityDetail from '../components/City/CityDetail';
 
 export default (props) => {
-  // let match = useRouteMatch();
   return (
     <Switch>
       <Route
@@ -12,8 +11,6 @@ export default (props) => {
         render={() => (
           <CityDetail
             city={props.city}
-            posts={props.posts}
-            handleSubmit={props.handleSubmit}
           />
         )}
       />
