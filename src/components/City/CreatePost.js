@@ -4,6 +4,11 @@ class CreatePost extends Component{
   state = {
     title : '',
     content : '',
+    defualtCity:'',
+    cities:'',
+    intitalSlug:this.props.city.slug,
+    dropdownSlug:'',
+    changed:false
   };
 
   handleChange = (e) => {
@@ -12,6 +17,20 @@ class CreatePost extends Component{
     })
   }
 
+  handleDropdown = (e) =>{
+    this.setState({
+      dropdownSlug:e.target.value,
+      changed:true
+    })
+  }
+  componentDidUpdate = () =>{
+    if(this.state.intitalSlug !== this.props.city.slug)
+    this.setState({
+      intitalSlug:this.props.city.slug,
+      changed:false,
+    })
+  } 
+
   handleClick = (e) => {
     const { city } = this.props;
     const newPost = {
@@ -19,15 +38,16 @@ class CreatePost extends Component{
       content: this.state.content,
       city: city._id,
     };
-    this.props.handleSubmit(e, newPost, city.slug);
+    this.props.handleSubmit(e, newPost, this.state.dropdownSlug);
 
     this.setState({
       title: '',
       content: '',
     });
   }
-
+  
   render(){
+    console.log('beep')
     const { city } = this.props;
     return (
       <>
@@ -51,7 +71,11 @@ class CreatePost extends Component{
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                {`Create a post for ${city.name}`}
+                <select id="city-select" onChange={this.handleDropdown} value={this.state.changed ? this.state.dropdownSlug : this.state.intitalSlug}>
+                 {this.props.cities.map(city=>{
+                return <option value={city.slug}>{city.name}</option>
+                 })}
+                </select>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>

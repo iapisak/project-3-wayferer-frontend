@@ -93,6 +93,7 @@ class CityDetail extends Component {
         {this.state.ajaxLoaded &&
           <CityPosts
             city={city}
+            cities = {this.props.cities}
             posts={this.state.posts}
             handleCreateSubmit={this.handleCreateSubmit}
             handleEditSubmit={this.handleEditSubmit}
