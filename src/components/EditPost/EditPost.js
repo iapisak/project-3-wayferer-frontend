@@ -24,7 +24,7 @@ class EditPost extends Component {
     <>
       <div
         className="modal fade"
-        id="editPost"
+        id={`editPost${this.props.post._id}`}
         tabIndex="-1"
         role="dialog"
         aria-labelledby="Edit post form"
