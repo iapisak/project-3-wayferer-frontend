@@ -1,5 +1,31 @@
+
 .post-detail-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;;
+  margin-bottom: 20px;
+}
+
+/* #editpost{
+  z-index: 1;
+} */
+
+
+.container-post-detail{
+  /* left : 50%; */
+  /* transform: translate(-50%, -50%); */
+  /* position: relative; */
+  /* top: 50%; */
+  margin: 10% 25% auto 25%;
+  font-family: "Raleway", sans-serif;
+  width: 50%;
+  height: 50%;
+  z-index: 1;
+  padding: .8em
+}
+.heading-post-detail{
+  font-size: 2em;
+}
+.post-detail, .post-detail-delete {
+  background-color: #FFEB7F;
+  color: black;
 }

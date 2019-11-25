@@ -85,22 +85,22 @@ class PostDetail extends Component {
     const { ajaxLoaded } = this.state;
     return (
       <main className="main-home-page">
-        <div className="container">
+        <div className="container-post-detail">
           <div className="post-detail-header">
-            <h1>{title}</h1>
+            <h1 className="heading-post-detail">{title}</h1>
             {ajaxLoaded &&
             <>
               <div className="post-detail-button-group btn-group">
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-primary post-detail"
                   data-toggle="modal"
                   data-target="#editPost"
                 >
-                  edit
+                  <i class="fas fa-pencil-alt"></i>
                 </button>
-                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
-                  delete
+                <button type="button" className="btn btn-primary post-detail-delete" data-toggle="modal" data-target="#deletemodal">
+                <i class="fas fa-trash"></i>
                 </button>
               </div>
               {this.displayDeleteModal()}
