@@ -28,6 +28,8 @@ class PostDetail extends Component {
 
   handleEditSubmit = (e, updated) => {
     e.preventDefault();
+    updated.user = localStorage.getItem('uid');
+    console.log(updated)
     const postId = this.state.post._id;
     axios.put(
       `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
@@ -82,11 +84,6 @@ class PostDetail extends Component {
     const { title, content } = this.state.post;
     const { ajaxLoaded } = this.state;
     return (
-<<<<<<< HEAD
-      <div className="main-home-page container">
-        <div className="post-detail-header">
-          <h1>{title}</h1>
-=======
       <main className="main-home-page">
         <div className="container">
           <div className="post-detail-header">
@@ -104,7 +101,6 @@ class PostDetail extends Component {
               </div>
             }
           </div>
->>>>>>> cf684cf92f51fe19ecf7f9432beee70f7fa66c74
           {ajaxLoaded &&
             <div>
               <p>{this.state.postCity.name}</p>
