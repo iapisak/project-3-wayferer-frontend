@@ -19,7 +19,7 @@ class PostDetail extends Component {
   deleteSelf = (e) => {
     setTimeout(1000)
     const userId = localStorage.getItem('uid');
-    axios.delete( `${process.env.REACT_APP_API_URL}/posts/${this.state.post._id}/delete/${userId}`)
+    axios.delete( `${process.env.REACT_APP_API_URL}/posts/${this.state.post._id}/delete/`,{withCredentials:true})
     .then(
       this.props.history.push('/')
     )
@@ -85,9 +85,9 @@ class PostDetail extends Component {
     const { ajaxLoaded } = this.state;
     return (
       <main className="main-home-page">
-        <div className="container">
+        <div className="container-post-detail">
           <div className="post-detail-header">
-            <h1>{title}</h1>
+            <h1 className="heading-post-detail">{title}</h1>
             {ajaxLoaded &&
             <>
               {this.state.post.user === localStorage.getItem('uid') &&

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../Post/Post.css'
 
 class PostContent extends Component{
   state = {
@@ -22,8 +23,8 @@ class PostContent extends Component{
             :
             content.substring(0,1000)}
           </p>
-          {content.length > 1000 && <button onClick={this.handleClick}>
-            {this.state.expanded ? 'See Less' : 'See More'}
+          {content.length > 1000 && <button onClick={this.handleClick} className="see-toggle">
+            {this.state.expanded ? 'Show Less' : 'Show More'}
           </button>}
       </div>
     )
