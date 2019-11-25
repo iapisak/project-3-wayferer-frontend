@@ -1,10 +1,10 @@
 .city-home {
     display: flex;
+    background: #f7f7f7;
 }
 
 .city-detail {
     margin: 0 auto;
-    background: #f7f7f7;
 }
 
 .city-list-container {
@@ -45,13 +45,15 @@
 }
 
 .city-photo {
-    width: 200px;
+    width: 550px;
 }
 
 .city-top-banner {
     display: flex;
     align-items: center;
     padding: 20px;
+    flex-direction: row-reverse;
+    justify-content: space-between;
 }
 
 .city-title {
