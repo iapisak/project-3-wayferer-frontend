@@ -90,19 +90,21 @@ class PostDetail extends Component {
             <h1>{title}</h1>
             {ajaxLoaded &&
             <>
-              <div className="post-detail-button-group btn-group">
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  data-toggle="modal"
-                  data-target="#editPost"
-                >
-                  edit
-                </button>
-                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
-                  delete
-                </button>
-              </div>
+              {this.state.post.user === localStorage.getItem('uid') &&
+                <div className="post-detail-button-group btn-group">
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#editPost"
+                  >
+                    edit
+                  </button>
+                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
+                    delete
+                  </button>
+                </div>
+              }
               {this.displayDeleteModal()}
               <EditPost
                 post={this.state.post}
