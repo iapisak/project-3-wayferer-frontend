@@ -89,16 +89,27 @@ class PostDetail extends Component {
           <div className="post-detail-header">
             <h1>{title}</h1>
             {ajaxLoaded &&
-              <div className="post-detail-button-group">
+            <>
+              <div className="post-detail-button-group btn-group">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#editPost"
+                >
+                  edit
+                </button>
+                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
+                  delete
+                </button>
+              </div>
+              {this.displayDeleteModal()}
               <EditPost
                 post={this.state.post}
                 city={this.state.postCity}
-                handleSubmit={this.handleEditSubmit}/>
-              <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
-                Delete
-              </button>
-              {this.displayDeleteModal()}
-              </div>
+                handleSubmit={this.handleEditSubmit}
+              />
+            </>
             }
           </div>
           {ajaxLoaded &&
