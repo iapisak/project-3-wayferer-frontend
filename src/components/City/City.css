@@ -71,6 +71,11 @@
     margin: 0 15px;
 }
 
+.alert {
+    padding: 5px 10px;
+    color:#df3344;
+  }
+
 @media (max-width: 750px) {
     .city-card {
         flex-direction: column;
