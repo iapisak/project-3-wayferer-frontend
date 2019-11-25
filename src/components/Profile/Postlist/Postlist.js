@@ -28,6 +28,9 @@ class Postlist extends Component {
       `${process.env.REACT_APP_API_URL}/users/${userId}/posts`,
       { withCredentials: true}
     ).then((res) => {
+      res.data.posts.sort((post1, post2) => {
+        return new Date(post2.timestamp) - new Date(post1.timestamp);
+      });
       this.setState({
         posts: res.data.posts,
         ajaxLoaded: true,
