@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import CityList from './CityList';
-import CityDetail from './CityDetail';
+import CityRouter from '../../config/CityRoutes';
+// import CityDetail from './CityDetail';
 import './City.css';
 
 class CitiesContainer extends Component {
@@ -10,7 +12,12 @@ class CitiesContainer extends Component {
         cities: [],
         posts: [],
         page:0,
-        activeCity:""
+    };
+
+    findActiveCity = () => {
+        const slug = this.props.location.pathname.replace('/', '');
+        const activeCity = this.state.cities.find(city => city.slug === slug);
+        return activeCity;
     };
 
     handleCreateSubmit = (e, newPost, slug) => {
@@ -42,40 +49,23 @@ class CitiesContainer extends Component {
         });
     }
 
-    displayPosts = (city) => {
-        axios.get(`${process.env.REACT_APP_API_URL}/cities/${city.slug}/posts`)
-        .then(posts => {
-            posts.data.posts.sort((post1, post2) => {
-                return new Date(post2.timestamp) - new Date(post1.timestamp);
-            })
-            this.setState({
-                posts: posts.data.posts,
-                ajaxLoaded: true,
-                activeCity: city,
-            });
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }
     render() {
         return (
             <main className='main-home-page'>
                 <div className="city-home">
                     <div className="city-list-container">
                         <h1>Cities</h1>
-                        <CityList displayPosts = {this.displayPosts} cities={this.state.cities}/>
+                        <CityList cities={this.state.cities}/>
                     </div>
-                    {this.state.ajaxLoaded &&
-                        <CityDetail
-                            city={this.state.activeCity}
-                            posts={this.state.posts}
-                            handleSubmit={this.handleCreateSubmit}
-                        />}
+                    <CityRouter
+                        city={this.findActiveCity()}
+                        posts={this.state.posts}
+                        handleSubmit={this.handleCreateSubmit}
+                    />
                 </div>
             </main>
         );
     }
 }
 
-export default CitiesContainer
+export default withRouter(CitiesContainer);
