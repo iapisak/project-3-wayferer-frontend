@@ -87,7 +87,7 @@ class Signup extends Component {
           this.setState(initialState)
           this.props.handleModelOnClickSignup()
         } else {
-          this.setState({ emailError: `Invalid Email, Please try again`})
+          this.setState({ emailError: `Invalid Email, Please try again`, password2Error: ''})
         }
       }).catch((err) => this.setState({ emailError: `Invalid Email, Please try again`}));
     }
