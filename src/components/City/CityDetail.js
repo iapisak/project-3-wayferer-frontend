@@ -74,6 +74,7 @@ class CityDetail extends Component {
         {this.state.ajaxLoaded &&
           <CityPosts
             city={city}
+            cities = {this.props.cities}
             posts={this.state.posts}
             handleSubmit={this.handleCreateSubmit}
           />}

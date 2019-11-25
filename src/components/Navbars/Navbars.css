@@ -35,7 +35,8 @@
   font-family: "Raleway", sans-serif;
   letter-spacing: 0.2em;
 }
-
+@media (min-width:768px){
 .local-nav{
   height: 60px;
+}
 }
