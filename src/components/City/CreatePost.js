@@ -80,7 +80,7 @@ class CreatePost extends Component{
         content: this.state.content,
         city: city._id,
       };
-      this.props.handleSubmit(e, newPost, city.slug);
+      this.props.handleSubmit(e, newPost, this.state.dropdownSlug);
 
       this.setState({
         title: '',
