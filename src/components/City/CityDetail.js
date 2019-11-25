@@ -6,7 +6,7 @@ class CityDetail extends Component {
   state = {
     posts: [],
     ajaxLoaded: false,
-    activeCity: {},
+    edited: false,
   };
 
   fetchPosts = () => {
@@ -47,16 +47,35 @@ class CityDetail extends Component {
             posts: newPosts,
         });
     })
-  }
+  };
+
+  handleEditSubmit = (e, updated) => {
+    e.preventDefault();
+    updated.user = localStorage.getItem('uid');
+    console.log(updated)
+    const postId = updated._id;
+    axios.put(
+      `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
+      updated
+    ).then((res) => {
+      console.log(res)
+      this.setState(prevState => ({
+        edited: true,
+        ajaxLoaded: true,
+      }));
+    })
+  };
 
   componentDidMount() {
     this.fetchPosts();
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.city !== prevProps.city) {
+    if (this.props.city !== prevProps.city || this.state.edited) {
       this.fetchPosts();
+      this.setState({ edited: false });
     }
+
   }
 
   render() {
@@ -74,8 +93,10 @@ class CityDetail extends Component {
         {this.state.ajaxLoaded &&
           <CityPosts
             city={city}
+            cities = {this.props.cities}
             posts={this.state.posts}
-            handleSubmit={this.handleCreateSubmit}
+            handleCreateSubmit={this.handleCreateSubmit}
+            handleEditSubmit={this.handleEditSubmit}
           />}
       </div>
     );

@@ -39,6 +39,7 @@ class CitiesContainer extends Component {
                     {this.state.ajaxLoaded &&
                     <CityRouter
                         city={this.findActiveCity()}
+                        cities={this.state.cities}
                     />}
                 </div>
             </main>

@@ -7,7 +7,12 @@ const defaultState = {
       content : '',
       titleError: '',
       contentError: '',
-      disabled: false
+      disabled: false,
+      defualtCity:'',
+      cities:'',
+      intitalSlug: this.props.city.slug,
+      dropdownSlug:'',
+      changed:false
 };
 
 class CreatePost extends Component{
@@ -44,6 +49,20 @@ class CreatePost extends Component{
     
   }
 
+  handleDropdown = (e) =>{
+    this.setState({
+      dropdownSlug:e.target.value,
+      changed:true
+    })
+  }
+  componentDidUpdate = () =>{
+    if(this.state.intitalSlug !== this.props.city.slug)
+    this.setState({
+      intitalSlug:this.props.city.slug,
+      changed:false,
+    })
+  } 
+
   handleClick = (e) => {
     e.preventDefault()
     const postValidation = this.postValidation()
@@ -65,8 +84,9 @@ class CreatePost extends Component{
       });
     }
   }
-
+  
   render(){
+    console.log('beep')
     const { city } = this.props;
     return (
       <>
@@ -74,14 +94,14 @@ class CreatePost extends Component{
           type="button"
           className="btn btn-primary"
           data-toggle="modal"
-          data-target="#editPost"
+          data-target="#createPost"
         >
           +
         </button>
 
         <div
           className="modal fade"
-          id="editPost"
+          id="createPost"
           tabIndex="-1"
           role="dialog"
           aria-labelledby="Edit post form"
@@ -90,7 +110,11 @@ class CreatePost extends Component{
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                {`Create a post for ${city.name}`}
+                <select id="city-select" onChange={this.handleDropdown} value={this.state.changed ? this.state.dropdownSlug : this.state.intitalSlug}>
+                 {this.props.cities.map(city=>{
+                return <option value={city.slug}>{city.name}</option>
+                 })}
+                </select>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span onClick={()=> {this.setState(defaultState)}} aria-hidden="true">&times;</span>
                 </button>

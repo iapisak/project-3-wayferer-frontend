@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import PostContent from '../Profile/Postlist/Post/PostContent';
-import EditPost from './EditPost/EditPost';
+import EditPost from '../EditPost/EditPost';
 import './PostDetail.css';
 
 class PostDetail extends Component {
@@ -24,22 +24,6 @@ class PostDetail extends Component {
       this.props.history.push('/')
     )
     .catch(err => console.log(err));
-  };
-
-  handleEditSubmit = (e, updated) => {
-    e.preventDefault();
-    updated.user = localStorage.getItem('uid');
-    console.log(updated)
-    const postId = this.state.post._id;
-    axios.put(
-      `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
-      updated
-    ).then((res) => {
-      console.log(res)
-      this.setState({
-        post: res.data.data,
-      });
-    })
   };
 
   displayDeleteModal = () => {
@@ -66,6 +50,22 @@ class PostDetail extends Component {
     );
   }
 
+  handleEditSubmit = (e, updated) => {
+    e.preventDefault();
+    updated.user = localStorage.getItem('uid');
+    console.log(updated)
+    const postId = this.state.post._id;
+    axios.put(
+      `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
+      updated
+    ).then((res) => {
+      console.log(res)
+      this.setState({
+        post: res.data.data,
+      });
+    })
+  };
+
   componentDidMount() {
     const postId = this.props.match.params.post_id;
     axios.get(
@@ -89,16 +89,27 @@ class PostDetail extends Component {
           <div className="post-detail-header">
             <h1>{title}</h1>
             {ajaxLoaded &&
-              <div className="post-detail-button-group">
+            <>
+              <div className="post-detail-button-group btn-group">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#editPost"
+                >
+                  edit
+                </button>
+                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
+                  delete
+                </button>
+              </div>
+              {this.displayDeleteModal()}
               <EditPost
                 post={this.state.post}
                 city={this.state.postCity}
-                handleSubmit={this.handleEditSubmit}/>
-              <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
-                Delete
-              </button>
-              {this.displayDeleteModal()}
-              </div>
+                handleSubmit={this.handleEditSubmit}
+              />
+            </>
             }
           </div>
           {ajaxLoaded &&

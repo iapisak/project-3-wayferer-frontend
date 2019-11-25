@@ -8,8 +8,8 @@ class CityPosts extends Component {
     page:0
   }
   calculatePage = () => {
-    const startIndex = this.state.page * 5
-    const endIndex = startIndex + 5
+    const startIndex = this.state.page * 4
+    const endIndex = startIndex + 4
     return this.props.posts.slice(startIndex,endIndex)
 }
   incrementPage = () => {
@@ -25,11 +25,17 @@ class CityPosts extends Component {
           <h2>Posts</h2>
           <CreatePost
             city={this.props.city}
-            handleSubmit={this.props.handleSubmit}
+            cities = {this.props.cities}
+            handleSubmit={this.props.handleCreateSubmit}
           />
         </div>
         {this.calculatePage().map(post => {
-          return <Post post={post} key={post._id}/>
+          return (
+            <Post
+              post={post}
+              key={post._id}
+              handleEditSubmit={this.props.handleEditSubmit}/>
+          );
         })}
         <button onClick={this.decrementPage}>-</button>
         <button onClick={this.incrementPage}>+</button>
