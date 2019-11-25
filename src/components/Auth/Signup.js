@@ -102,7 +102,7 @@ class Signup extends Component {
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalCenterTitle">Sign Up</h5>
             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-              <span onClick={this.props.handleModelOnClickSignup}>&times;</span>
+              <span onClick={()=> {this.setState(initialState); this.props.handleModelOnClickSignup()}}>&times;</span>
             </button>
           </div>
           <div className="modal-body">

@@ -35,6 +35,10 @@ class Login extends Component {
         return true
     }
 
+    clearForm = () => {
+        this.setState(initialState)
+    }
+
     handleOnChange = e => {
         this.setState({ [e.target.name]: e.target.value})
     }
@@ -50,7 +54,7 @@ class Login extends Component {
                 this.props.history.push('/profile')
                 this.props.handleModelOnClick()
             })
-            .catch((err) => this.setState({passwordError: `Invalid password`}))
+            .catch((err) => this.setState({passwordError: `Invalid password`, emailError: ''}))
         }
     }
 
@@ -63,7 +67,7 @@ class Login extends Component {
                 <div className="modal-header">
                     <h5 className="modal-title" id="exampleModalCenterTitle">Sign In</h5>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                        <span onClick={this.props.handleModelOnClick}>&times;</span>
+                        <span onClick={()=> {this.setState(initialState); this.props.handleModelOnClick()}}>&times;</span>
                     </button>
                 </div>
 
