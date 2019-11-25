@@ -9,14 +9,13 @@ class CityDetail extends Component {
     activeCity: {},
   };
 
-  componentDidMount() {
+  fetchPosts = () => {
     const { city } = this.props;
     axios.get(`${process.env.REACT_APP_API_URL}/cities/${city.slug}/posts`)
     .then(posts => {
         posts.data.posts.sort((post1, post2) => {
             return new Date(post2.timestamp) - new Date(post1.timestamp);
-        })
-        console.log(posts.data.posts)
+        });
         this.setState({
             posts: posts.data.posts,
             ajaxLoaded: true,
@@ -25,10 +24,43 @@ class CityDetail extends Component {
     .catch(err => {
         console.log(err)
     })
+  };
+
+  handleCreateSubmit = (e, newPost, slug) => {
+    e.preventDefault();
+    const userId = localStorage.getItem('uid');
+    const timestamp = (new Date()).getTime();
+
+    axios.post(
+      `${process.env.REACT_APP_API_URL}/cities/${slug}/posts/new`,
+      {
+        ...newPost,
+        timestamp,
+        user :userId,
+      }
+    ).then((res)=>{
+        const newPosts = this.state.posts.concat(res.data.data);
+        newPosts.sort((post1, post2) => {
+            return new Date(post2.timestamp) - new Date(post1.timestamp);
+        });
+        this.setState({
+            posts: newPosts,
+        });
+    })
+  }
+
+  componentDidMount() {
+    this.fetchPosts();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.city !== prevProps.city) {
+      this.fetchPosts();
+    }
   }
 
   render() {
-    const { city, handleSubmit } = this.props;
+    const { city } = this.props;
 
     return(
       <div className="city-detail">
@@ -43,7 +75,7 @@ class CityDetail extends Component {
           <CityPosts
             city={city}
             posts={this.state.posts}
-            handleSubmit={handleSubmit}
+            handleSubmit={this.handleCreateSubmit}
           />}
       </div>
     );
