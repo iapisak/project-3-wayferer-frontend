@@ -18,7 +18,8 @@ class PostDetail extends Component {
 
   deleteSelf = (e) => {
     setTimeout(1000)
-    axios.delete( `${process.env.REACT_APP_API_URL}/posts/${this.state.post._id}/delete`)
+    const userId = localStorage.getItem('uid');
+    axios.delete( `${process.env.REACT_APP_API_URL}/posts/${this.state.post._id}/delete/${userId}`)
     .then(
       this.props.history.push('/')
     )
@@ -27,6 +28,8 @@ class PostDetail extends Component {
 
   handleEditSubmit = (e, updated) => {
     e.preventDefault();
+    updated.user = localStorage.getItem('uid');
+    console.log(updated)
     const postId = this.state.post._id;
     axios.put(
       `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
