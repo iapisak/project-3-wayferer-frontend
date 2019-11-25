@@ -55,14 +55,14 @@ class CreatePost extends Component{
           type="button"
           className="btn btn-primary"
           data-toggle="modal"
-          data-target="#editPost"
+          data-target="#createPost"
         >
           +
         </button>
 
         <div
           className="modal fade"
-          id="editPost"
+          id="createPost"
           tabIndex="-1"
           role="dialog"
           aria-labelledby="Edit post form"
