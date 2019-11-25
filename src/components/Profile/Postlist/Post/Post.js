@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import EditPost from '../../../EditPost/EditPost';
+import './Post.css';
 
 class Post extends Component {
   state = {
@@ -68,20 +69,22 @@ class Post extends Component {
           <Link to={postLink}>
             <h4>{post.title}</h4>
           </Link>
-          <div className="btn-group">
-            <button
-              type="button"
-              className="btn btn-sm btn-outline-secondary"
-              data-toggle="modal"
-              data-target="#editPost"
-            >
-              edit
-            </button>
-            <button
-              className="btn btn-sm btn-outline-secondary"
-              data-toggle="modal" data-target="#deletemodal"
-            >delete</button>
-          </div>
+          {post.user === localStorage.getItem('uid') &&
+            <div className="btn-group">
+              <button
+                type="button"
+                className="btn btn-sm btn-outline-secondary"
+                data-toggle="modal"
+                data-target="#editPost"
+              >
+                edit
+              </button>
+              <button
+                className="btn btn-sm btn-outline-secondary"
+                data-toggle="modal" data-target="#deletemodal"
+              >delete</button>
+            </div>
+          }
           <EditPost
             post={this.state.post}
             city={this.state.postCity}

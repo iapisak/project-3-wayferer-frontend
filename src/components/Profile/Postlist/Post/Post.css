@@ -1,4 +1,9 @@
+.post-info {
+  display: flex;
+  justify-content: space-between;
+}
+
 .see-toggle {
-    background-color:#FFEB7F;
-    color: black;
-  }
+  background-color:#FFEB7F;
+  color: black;
+}

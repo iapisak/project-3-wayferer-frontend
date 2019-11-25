@@ -52,7 +52,7 @@ class CreatePost extends Component{
     this.setState({
       [e.target.name]: e.target.value,
     }, this.postValidation)
-    
+
   }
 
   handleDropdown = (e) =>{
@@ -67,7 +67,7 @@ class CreatePost extends Component{
       intitalSlug:this.props.city.slug,
       dropdownSlug:this.props.city.slug
     })
-  } 
+  }
 
   handleClick = (e) => {
     e.preventDefault()
@@ -90,9 +90,8 @@ class CreatePost extends Component{
       });
     }
   }
-  
+
   render(){
-    console.log('beep')
     const { city } = this.props;
     return (
       <>
