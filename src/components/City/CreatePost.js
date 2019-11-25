@@ -8,15 +8,21 @@ const defaultState = {
       titleError: '',
       contentError: '',
       disabled: false,
+};
+
+class CreatePost extends Component{
+  state = {
+      title : '',
+      content : '',
+      titleError: '',
+      contentError: '',
+      disabled: false,
       defualtCity:'',
       cities:'',
       intitalSlug: this.props.city.slug,
       dropdownSlug:'',
       changed:false
 };
-
-class CreatePost extends Component{
-  state = defaultState
 
   postValidation = () => {
       const { title, content } = this.state
