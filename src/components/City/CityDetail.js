@@ -6,7 +6,7 @@ class CityDetail extends Component {
   state = {
     posts: [],
     ajaxLoaded: false,
-    activeCity: this.props.city,
+    edited: false,
   };
 
   fetchPosts = () => {
@@ -39,7 +39,6 @@ class CityDetail extends Component {
         user :userId,
       }
     ).then((res)=>{
-        if(res.data.data.city === this.props.city._id){
         const newPosts = this.state.posts.concat(res.data.data);
         newPosts.sort((post1, post2) => {
             return new Date(post2.timestamp) - new Date(post1.timestamp);
@@ -47,17 +46,36 @@ class CityDetail extends Component {
         this.setState({
             posts: newPosts,
         });
-    }})
-  }
+    })
+  };
+
+  handleEditSubmit = (e, updated) => {
+    e.preventDefault();
+    updated.user = localStorage.getItem('uid');
+    console.log(updated)
+    const postId = updated._id;
+    axios.put(
+      `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
+      updated
+    ).then((res) => {
+      console.log(res)
+      this.setState(prevState => ({
+        edited: true,
+        ajaxLoaded: true,
+      }));
+    })
+  };
 
   componentDidMount() {
     this.fetchPosts();
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.city !== prevProps.city) {
+    if (this.props.city !== prevProps.city || this.state.edited) {
       this.fetchPosts();
+      this.setState({ edited: false });
     }
+
   }
 
   render() {
@@ -77,7 +95,8 @@ class CityDetail extends Component {
             city={city}
             cities = {this.props.cities}
             posts={this.state.posts}
-            handleSubmit={this.handleCreateSubmit}
+            handleCreateSubmit={this.handleCreateSubmit}
+            handleEditSubmit={this.handleEditSubmit}
           />}
       </div>
     );
