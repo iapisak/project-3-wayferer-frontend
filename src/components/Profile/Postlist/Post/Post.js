@@ -6,10 +6,6 @@ import EditPost from '../../../EditPost/EditPost';
 import './Post.css';
 
 class Post extends Component {
-  state = {
-    post: this.props.post,
-  };
-
   deleteSelf = (e) => {
     setTimeout(1000)
     const userId = localStorage.getItem('uid');
@@ -22,7 +18,7 @@ class Post extends Component {
 
   displayDeleteModal = () => {
     return (
-      <div className="modal fade" id="deletemodal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div className="modal fade" id={`deletemodal${this.props.post._id}`} tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -42,22 +38,6 @@ class Post extends Component {
         </div>
       </div>
     );
-  }
-
-  handleEditSubmit = (e, updated) => {
-    e.preventDefault();
-    updated.user = localStorage.getItem('uid');
-    console.log(updated)
-    const postId = this.state.post._id;
-    axios.put(
-      `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
-      updated
-    ).then((res) => {
-      console.log(res)
-      this.setState({
-        post: res.data.data,
-      });
-    })
   };
 
   render() {
@@ -75,19 +55,18 @@ class Post extends Component {
                 type="button"
                 className="btn btn-sm btn-outline-secondary"
                 data-toggle="modal"
-                data-target="#editPost"
+                data-target={`#editPost${post._id}`}
               >
                 edit
               </button>
               <button
                 className="btn btn-sm btn-outline-secondary"
-                data-toggle="modal" data-target="#deletemodal"
+                data-toggle="modal" data-target={`#deletemodal${post._id}`}
               >delete</button>
             </div>
           }
           <EditPost
-            post={this.state.post}
-            city={this.state.postCity}
+            post={post}
             handleSubmit={this.props.handleEditSubmit}
           />
           {this.displayDeleteModal()}
