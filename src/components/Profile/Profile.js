@@ -24,7 +24,6 @@ class Profile extends Component {
       `${process.env.REACT_APP_API_URL}/users/${userId}`,
       { withCredentials: true}
     ).then((res) => {
-      console.log(res);
       this.setState({
         user: res.data.data,
         ajaxLoaded: true,
@@ -93,7 +92,6 @@ class Profile extends Component {
       `${process.env.REACT_APP_API_URL}/users/${userId}/update`,
       {profilePhoto:photoLink}
     ).then((res)=>{
-      console.log(res)
       window.location.reload();
       // this.props.history.push('/')
     }).catch((err)=>{

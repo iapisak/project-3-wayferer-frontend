@@ -22,7 +22,7 @@ class ProfileEditForm extends Component {
   };
 
   render() {
-    const { handleSubmit, pictureUploaded} = this.props;
+    const { handleSubmit } = this.props;
     return (
       <div className="mt-4 profile-edit">
         {/* <div className="row"> */}

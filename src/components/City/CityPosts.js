@@ -23,7 +23,10 @@ class CityPosts extends Component {
       <div className="city-posts">
         <div className="city-posts-header">
           <h2>Posts</h2>
-          <CreatePost handleSubmit={this.props.handleSubmit}/>
+          <CreatePost
+            city={this.props.city}
+            handleSubmit={this.props.handleSubmit}
+          />
         </div>
         {this.calculatePage().map(post => {
           return <Post post={post} key={post._id}/>

@@ -26,7 +26,6 @@ class CitiesContainer extends Component {
             user :userId,
           }
         ).then((res)=>{
-            console.log(res);
             const newPosts = this.state.posts.concat(res.data.data);
             newPosts.sort((post1, post2) => {
                 return new Date(post2.timestamp) - new Date(post1.timestamp);
