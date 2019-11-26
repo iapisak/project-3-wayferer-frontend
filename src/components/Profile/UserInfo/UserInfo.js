@@ -13,7 +13,7 @@ const UserInfo = ({ user, toggleEdit, pictureUploaded }) => (
         }
       </div>
       <div>
-        <h4 className="card-text">Welcome, {user.name}!</h4>
+        <h4 className="card-text">{user.name}</h4>
         <h5 className="card-text">{user.currentCity}</h5>
       </div>
     </div>
