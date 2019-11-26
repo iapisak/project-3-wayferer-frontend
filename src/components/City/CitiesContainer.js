@@ -33,7 +33,6 @@ class CitiesContainer extends Component {
             <main className='main-home-page'>
                 <div className="city-home">
                     <div className="city-list-container">
-                        <h1>Cities</h1>
                         <CityList cities={this.state.cities}/>
                     </div>
                     {this.state.ajaxLoaded &&
