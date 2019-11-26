@@ -55,13 +55,14 @@ class CityDetail extends Component {
         withCredentials: true
       }
     ).then((res)=>{
+        if(res.data.data.city === this.props.city._id){
         const newPosts = this.state.posts.concat(res.data.data);
         newPosts.sort((post1, post2) => {
             return new Date(post2.timestamp) - new Date(post1.timestamp);
         });
         this.setState({
             posts: newPosts,
-        });
+        });}
     })
   };
 
