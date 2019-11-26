@@ -39,7 +39,9 @@ class Post extends Component {
       <div className="post">
         <div className="post-info">
           <div className="post-info-header">
-           
+          <Link to={postLink}>
+              <h4>{post.title}</h4>
+            </Link>
 
             <Link to={`/users/${post.user.name}`}>
               <small className="post-info-author">{post.user.name}</small>
