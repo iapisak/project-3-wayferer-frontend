@@ -1,6 +1,19 @@
 .post-info {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.post-info-header {
+  line-height: 0.1em;
+}
+
+.post-info-author {
+  color: #a7a7a7;
+}
+
+.post-content-preview {
+  margin-top: 15px;
 }
 
 .see-toggle {
