@@ -34,7 +34,9 @@ class CityPosts extends Component {
             <Post
               post={post}
               key={post._id}
-              handleEditSubmit={this.props.handleEditSubmit}/>
+              handleEditSubmit={this.props.handleEditSubmit}
+              handleDelete={this.props.handleDelete}
+            />
           );
         })}
         <button onClick={this.decrementPage}>-</button>

@@ -117,7 +117,7 @@ class CreatePost extends Component{
               <div className="modal-header">
                 <select id="city-select" onChange={this.handleDropdown} value={this.state.dropdownSlug}>
                  {this.props.cities.map(city=>{
-                return <option value={city.slug}>{city.name}</option>
+                  return <option value={city.slug} key={city._id}>{city.name}</option>
                  })}
                 </select>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">

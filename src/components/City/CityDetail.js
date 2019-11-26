@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import CityPosts from './CityPosts';
 
@@ -24,6 +25,18 @@ class CityDetail extends Component {
     .catch(err => {
         console.log(err)
     })
+  };
+
+  handleDelete = (post) => {
+    setTimeout(1000)
+    axios.delete(
+      `${process.env.REACT_APP_API_URL}/posts/${post._id}/delete/`,
+      { withCredentials: true }
+    )
+    .then(
+      this.props.history.push('/')
+    )
+    .catch(err => console.log(err));
   };
 
   handleCreateSubmit = (e, newPost, slug) => {
@@ -100,10 +113,11 @@ class CityDetail extends Component {
             posts={this.state.posts}
             handleCreateSubmit={this.handleCreateSubmit}
             handleEditSubmit={this.handleEditSubmit}
+            handleDelete={this.handleDelete}
           />}
       </div>
     );
   }
 }
 
-export default CityDetail;
+export default withRouter(CityDetail);

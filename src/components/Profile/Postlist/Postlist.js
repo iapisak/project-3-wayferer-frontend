@@ -40,6 +40,18 @@ class Postlist extends Component {
     })
   };
 
+  handleDelete = (post) => {
+    setTimeout(1000)
+    axios.delete(
+      `${process.env.REACT_APP_API_URL}/posts/${post._id}/delete/`,
+      { withCredentials: true }
+    )
+    .then(
+      this.props.history.push('/')
+    )
+    .catch(err => console.log(err));
+  };
+
   fetchPosts = () => {
     const userId = localStorage.getItem('uid');
     axios.get(
@@ -78,6 +90,7 @@ class Postlist extends Component {
             post={post}
             key={post._id}
             handleEditSubmit={this.handlePostEditSubmit}
+            handleDelete={this.handleDelete}
           />
         ))}
       </div>
