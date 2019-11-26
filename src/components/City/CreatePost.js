@@ -42,7 +42,6 @@ class CreatePost extends Component{
           return false
       }
       if (title !== '' && content !== '') {
-        console.log(true)
         this.setState({disabled:false, titleError, contentError})
         return true
       }
@@ -68,6 +67,12 @@ class CreatePost extends Component{
       dropdownSlug:this.props.city.slug
     })
   }
+  componentDidMount = () =>{
+    this.setState({
+      intitalSlug:this.props.city.slug,
+      dropdownSlug:this.props.city.slug
+    })
+  }
 
   handleClick = (e) => {
     e.preventDefault()
@@ -85,14 +90,12 @@ class CreatePost extends Component{
       this.setState({
         title: '',
         content: '',
-        modal: 'modal',
         disable: null
       });
     }
   }
 
   render(){
-    const { city } = this.props;
     return (
       <>
         <button
@@ -101,7 +104,7 @@ class CreatePost extends Component{
           data-toggle="modal"
           data-target="#createPost"
         >
-          <i class="fas fa-plus-circle fa-2x"></i>
+          <i className="fas fa-plus-circle fa-2x"></i>
         </button>
 
         <div
@@ -117,7 +120,7 @@ class CreatePost extends Component{
               <div className="modal-header">
                 <select id="city-select" onChange={this.handleDropdown} value={this.state.dropdownSlug}>
                  {this.props.cities.map(city=>{
-                return <option value={city.slug}>{city.name}</option>
+                  return <option value={city.slug} key={city._id}>{city.name}</option>
                  })}
                 </select>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">

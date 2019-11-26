@@ -6,7 +6,9 @@ import './City.css'
 
 class CityPosts extends Component {
   state = {
-    page:0
+    page: 0,
+    totalPages: 1,
+    multiplePages: false,
   }
   calculatePage = () => {
     const startIndex = this.state.page * 4
@@ -14,11 +16,37 @@ class CityPosts extends Component {
     return this.props.posts.slice(startIndex,endIndex)
 }
   incrementPage = () => {
-    this.setState({page:this.state.page+1})
-  }
+    const { page, totalPages } = this.state;
+    this.setState({
+      page: page < (totalPages - 1) ? page + 1 : page,
+    })
+  };
+
   decrementPage = () => {
-    this.setState({page:this.state.page-1})
+    const { page } = this.state;
+    this.setState({
+      page: page > 0 ? page - 1 : page,
+    });
   }
+
+  setMultiplePages = () => {
+    const totalPages = Math.ceil(this.props.posts.length / 4);
+    this.setState({
+      totalPages,
+      multiplePages: totalPages > 1 ? true : false,
+    });
+  };
+
+  componentDidMount() {
+    this.setMultiplePages();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.posts.length !== this.props.posts.length) {
+      this.setMultiplePages();
+    }
+  }
+
   render() {
     return(
       <div className="city-posts">
@@ -35,12 +63,28 @@ class CityPosts extends Component {
             <Post
               post={post}
               key={post._id}
-              handleEditSubmit={this.props.handleEditSubmit}/>
+              handleEditSubmit={this.props.handleEditSubmit}
+              handleDelete={this.props.handleDelete}
+            />
           );
         })}
-        <button onClick={this.decrementPage} className="city-increment"><i class="fas fa-minus-circle"></i></button>
-        <button onClick={this.incrementPage} className="city-decrement"><i class="fas fa-plus-circle"></i></button>
-
+        {this.state.multiplePages
+          &&
+            <div>
+              <button
+                onClick={this.decrementPage}
+                className="city-increment"
+              >
+                <i className="fas fa-minus-circle"></i>
+              </button>
+              <button
+                onClick={this.incrementPage}
+                className="city-decrement"
+              >
+                <i className="fas fa-plus-circle"></i>
+              </button>
+            </div>
+        }
 
       </div>
     );

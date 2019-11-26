@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import Post from './Post/Post';
@@ -32,12 +33,24 @@ class Postlist extends Component {
       `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
       updated
     ).then((res) => {
-      console.log(res)
       this.setState(prevState => ({
         edited: true,
         ajaxLoaded: true,
       }));
     })
+  };
+
+  handleDelete = (post) => {
+    setTimeout(1000)
+    axios.delete(
+      `${process.env.REACT_APP_API_URL}/posts/${post._id}/delete/`,
+      { withCredentials: true }
+    )
+    .then(() => {
+      this.setState({ edited: true });
+      this.props.history.push(this.props.location.pathname);
+    })
+    .catch(err => console.log(err));
   };
 
   fetchPosts = () => {
@@ -78,6 +91,7 @@ class Postlist extends Component {
             post={post}
             key={post._id}
             handleEditSubmit={this.handlePostEditSubmit}
+            handleDelete={this.handleDelete}
           />
         ))}
       </div>
@@ -85,4 +99,4 @@ class Postlist extends Component {
   }
 }
 
-export default Postlist;
+export default withRouter(Postlist);

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import CityPosts from './CityPosts';
+
+import './City.css';
 
 class CityDetail extends Component {
   state = {
@@ -26,6 +29,19 @@ class CityDetail extends Component {
     })
   };
 
+  handleDelete = (post) => {
+    setTimeout(1000)
+    axios.delete(
+      `${process.env.REACT_APP_API_URL}/posts/${post._id}/delete/`,
+      { withCredentials: true }
+    )
+    .then((res) => {
+      this.setState({ edited: true });
+      this.props.history.push(this.props.location.pathname);
+    })
+    .catch(err => console.log(err));
+  };
+
   handleCreateSubmit = (e, newPost, slug) => {
     e.preventDefault();
     const userId = localStorage.getItem('uid');
@@ -42,6 +58,7 @@ class CityDetail extends Component {
         withCredentials: true
       }
     ).then((res)=>{
+      if (res.data.data.city === this.props.city._id) {
         const newPosts = this.state.posts.concat(res.data.data);
         newPosts.sort((post1, post2) => {
             return new Date(post2.timestamp) - new Date(post1.timestamp);
@@ -49,6 +66,9 @@ class CityDetail extends Component {
         this.setState({
             posts: newPosts,
         });
+      } else {
+        this.props.history.push(`/${slug}`);
+      }
     })
   };
 
@@ -78,11 +98,11 @@ class CityDetail extends Component {
       this.fetchPosts();
       this.setState({ edited: false });
     }
-
   }
 
   render() {
     const { city } = this.props;
+    console.log(this.props)
 
     return(
       <div className="city-detail">
@@ -90,7 +110,7 @@ class CityDetail extends Component {
           <img src={city.photo} className="city-photo" alt=""/>
           <div className = "city-title">
             <h2>{city.name}</h2>
-            <p>A description goes here...</p>
+            <p>{city.description}</p>
           </div>
         </div>
         {this.state.ajaxLoaded &&
@@ -100,10 +120,11 @@ class CityDetail extends Component {
             posts={this.state.posts}
             handleCreateSubmit={this.handleCreateSubmit}
             handleEditSubmit={this.handleEditSubmit}
+            handleDelete={this.handleDelete}
           />}
       </div>
     );
   }
 }
 
-export default CityDetail;
+export default withRouter(CityDetail);
