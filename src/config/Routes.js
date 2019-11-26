@@ -7,7 +7,7 @@ import CitiesContainer from "../components/City/CitiesContainer";
 
 export default ({ currentUser }) => (
   <Switch>
-      <Route path="/profile" render={() => (
+      <Route path="/users/:username" render={() => (
         <Profile currentUser={currentUser}/>
       )}
       />
