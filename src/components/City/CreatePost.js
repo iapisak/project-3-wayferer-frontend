@@ -42,7 +42,6 @@ class CreatePost extends Component{
           return false
       }
       if (title !== '' && content !== '') {
-        console.log(true)
         this.setState({disabled:false, titleError, contentError})
         return true
       }
@@ -86,7 +85,6 @@ class CreatePost extends Component{
         content: this.state.content,
         city: city._id,
       };
-      console.log(this.state.dropdownSlug)
       this.props.handleSubmit(e, newPost, this.state.dropdownSlug);
 
       this.setState({
@@ -99,7 +97,6 @@ class CreatePost extends Component{
   }
 
   render(){
-    const { city } = this.props;
     return (
       <>
         <button

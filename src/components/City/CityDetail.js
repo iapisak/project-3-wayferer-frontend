@@ -33,9 +33,9 @@ class CityDetail extends Component {
       `${process.env.REACT_APP_API_URL}/posts/${post._id}/delete/`,
       { withCredentials: true }
     )
-    .then(
-      this.props.history.push('/')
-    )
+    .then((res) => {
+      this.props.history.push('/');
+    })
     .catch(err => console.log(err));
   };
 

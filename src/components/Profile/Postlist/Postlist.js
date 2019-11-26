@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import Post from './Post/Post';
@@ -98,4 +99,4 @@ class Postlist extends Component {
   }
 }
 
-export default Postlist;
+export default withRouter(Postlist);
