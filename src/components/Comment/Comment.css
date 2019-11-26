@@ -1,0 +1,16 @@
+.comment {
+  width:100%;
+  border-bottom:2px solid black;
+}
+.comments:first-child{
+  border-top:2px solid black;
+}
+.comment-form{
+  width:100%;
+  margin: 0 auto;
+}
+
+.comment-input{
+  width:100%;
+  clear: both;
+}

@@ -15,7 +15,11 @@
 .post-content-preview {
   margin-top: 15px;
 }
-
+.post-content{
+  display: inline-block;
+  width: 100%;
+  word-wrap: break-word;
+}
 .see-toggle {
   background-color:#FFEB7F;
   color: black;

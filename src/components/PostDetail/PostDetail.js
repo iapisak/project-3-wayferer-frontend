@@ -93,6 +93,7 @@ class PostDetail extends Component {
       `${process.env.REACT_APP_API_URL}/posts/${postId}`,
       { withCredentials: true}
     ).then((res) => {
+      console.log(res)
       this.setState({
         post: res.data.post,
         postCity: res.data.post.city,
@@ -149,10 +150,12 @@ class PostDetail extends Component {
               <p>{this.state.postCity.name}</p>
               <PostContent content={content}/>
             </div>
-            <CommentForm handleSubmit={this.handleSubmit} postId={this.state.post._id}/>
-            {this.state.post.comments.map(comment=>{
-              return <Comment comment={comment}/>
-            })}
+            <section className="comments">
+              <CommentForm handleSubmit={this.handleSubmit} postId={this.state.post._id}/>
+              {this.state.post.comments.map(comment=>{
+                return <Comment comment={comment}/>
+              })}
+            </section>
             </>
             }
         </div>
