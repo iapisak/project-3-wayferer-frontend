@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import PostContent from '../Profile/Postlist/Post/PostContent';
 import EditPost from '../EditPost/EditPost';
+import CommentForm from '../Comment/CommentForm'
+import Comment from '../Comment/Comment'
 import './PostDetail.css';
 
 class PostDetail extends Component {
@@ -115,11 +117,19 @@ class PostDetail extends Component {
             }
           </div>
           {ajaxLoaded &&
+          <>
             <div>
               <p>{this.state.postCity.name}</p>
               <PostContent content={content}/>
-            </div>}
+            </div>
+            <CommentForm postId={this.state.post._id}/>
+            {this.state.post.comments.map(comment=>{
+              return <Comment comment={comment}/>
+            })}
+            </>
+            }
         </div>
+        
       </main>
     );
   }

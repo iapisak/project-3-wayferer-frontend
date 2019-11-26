@@ -7,16 +7,32 @@ class CommentForm extends Component{
   }
   handleSubmit = (e) => {
     e.preventDefault()
+    const userId = localStorage.getItem('uid')
     const comment = {
-      content:e.target.value
+      content:this.state.body,
+      user:userId,
+      timestamp:Date.now()
     }
+    console.log(comment)
     axios.post(`${process.env.REACT_APP_API_URL}/comment/${this.props.postId}`,comment)
+    .then(res=>{
+      console.log(res)
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  }
+  handleInput = (e) => {
+    this.setState({
+      body:e.target.value
+    })
   }
 
   render(){
     return(
-      <form>
-      <input type='text'></input>
+      <form onSubmit={this.handleSubmit}>
+      <input value={this.state.body} onChange={this.handleInput} type='text'></input>
+      <button type='submit'>Comment</button>
       </form>
     )
   }
