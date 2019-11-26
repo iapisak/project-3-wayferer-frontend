@@ -17,6 +17,26 @@ class PostDetail extends Component {
     postCity: { name: 'testtown, USA' },
     ajaxLoaded: false,
   };
+  handleSubmit = (e,body) => {
+    e.preventDefault()
+    console.log(body)
+    const userId = localStorage.getItem('uid')
+    const comment = {
+      content:body,
+      user:userId,
+      timestamp:Date.now()
+    }
+    console.log(comment)
+    axios.post(`${process.env.REACT_APP_API_URL}/comment/${this.state.post._id}`,comment)
+    .then(res=>{
+      console.log(res)
+      this.setState({post:res.data.post})
+      
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  }
 
   deleteSelf = (e) => {
     setTimeout(1000)
@@ -127,7 +147,7 @@ class PostDetail extends Component {
               <p>{this.state.postCity.name}</p>
               <PostContent content={content}/>
             </div>
-            <CommentForm postId={this.state.post._id}/>
+            <CommentForm handleSubmit={this.handleSubmit} postId={this.state.post._id}/>
             {this.state.post.comments.map(comment=>{
               return <Comment comment={comment}/>
             })}
