@@ -4,19 +4,30 @@
 }
 .city-home {
     display: flex;
+    flex-direction: row;
     background: #f7f7f7;
-}
-
-.city-detail {
+    height: 100%;
     margin: 0 auto;
+}
+.city-post-content {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .city-list-container {
     width: 35vw;
     background: #a7a7a7;
-    height: 100vh;
+    height: 100%;
     overflow-y: scroll;
 }
+
+.city-list {
+    padding: 10px 0  30px 0;
+}
+
 a{
     color: black;
     text-decoration: none;
@@ -55,19 +66,17 @@ a{
 }
 
 .city-photo {
-    width: 550px;
+    width: 700px;
 }
 
 .city-top-banner {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     padding: 20px;
-    flex-direction: row-reverse;
-    justify-content: space-between;
 }
 
 .city-title {
-    margin-left: 10px;
+    /* margin-left: 10px; */
     border: 1px solid black;
     padding: 20px;
     background: #212529;
@@ -95,12 +104,17 @@ a{
     background-color: rgb(255, 219, 17);
     color:#212529;
 }
+.city-photo{
+    width: auto;
+    height: auto;
+}
 
 
 
 .city-posts {
     width: 60vw;
     margin: 0 15px;
+    height: 300px;
 }
 
 .alert {
@@ -117,7 +131,45 @@ a{
         font-size: 20px;
     }
     .city-photo{
-        width: 225px;
+        width: auto;
         height: 200px;
+        margin: 10px 20px;
+    }
+    .city-posts{
+        width: 100%;
+        font-size: .5em;
+
+    }
+    .city-home {
+    display: flex;
+    flex-direction: column-reverse;
+    background: #f7f7f7;
+    /* height: 600px; */
+    overflow-y: scroll;
+    }
+    .city-list-container{
+        width:100%;
+    }
+    .city-detail{
+        padding: 0px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .city-top-banner{
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+    .city-post-content{
+        width: 280px;
+        margin: auto;
+        height: 170px;
+    }
+    .city-title{
+        text-align: center;
+    }
+    .city-posts-header{
+        margin: 2px 20px;
     }
 }
