@@ -18,7 +18,6 @@ class PostDetail extends Component {
 
   deleteSelf = (e) => {
     setTimeout(1000)
-    const userId = localStorage.getItem('uid');
     axios.delete( `${process.env.REACT_APP_API_URL}/posts/${this.state.post._id}/delete/`,{withCredentials:true})
     .then(
       this.props.history.push('/')
