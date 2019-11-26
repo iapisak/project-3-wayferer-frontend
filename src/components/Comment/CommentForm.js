@@ -3,20 +3,20 @@ import axios from 'axios'
 
 class CommentForm extends Component{
   state = {
-    body:''
+    body:'',
   }
-  handleSubmit = (e) => {
-    e.preventDefault()
-    const comment = {
-      content:e.target.value
-    }
-    axios.post(`${process.env.REACT_APP_API_URL}/comment/${this.props.postId}`,comment)
+ 
+  handleInput = (e) => {
+    this.setState({
+      body:e.target.value
+    })
   }
 
   render(){
     return(
-      <form>
-      <input type='text'></input>
+      <form className="comment-form" onSubmit={e=>{this.props.handleSubmit(e,this.state.body)}}>
+      <input className="comment-input" value={this.state.body} onChange={this.handleInput} type='text'></input>
+      <button className="comment-submit" type='submit'>Comment</button>
       </form>
     )
   }

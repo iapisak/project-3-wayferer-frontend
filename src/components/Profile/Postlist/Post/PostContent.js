@@ -15,7 +15,7 @@ class PostContent extends Component{
   render(){
     const { content } = this.props;
     return(
-      <div>
+      <div className="post-content">
           <p>
             {this.state.expanded
             ?
