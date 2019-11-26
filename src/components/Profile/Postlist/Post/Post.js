@@ -71,6 +71,7 @@ class Post extends Component {
           {this.displayDeleteModal()}
         </div>
         <p className="post-content-preview">{post.content.substring(0,90)}{post.content.length > 90 && '...'}</p>
+        <div className="post-info-author">{`${post.comments.length} comment${post.comments.length !== 1 ? 's' : ''}`}</div>
       </div>
     );
   }
