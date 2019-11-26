@@ -23,7 +23,7 @@ class Login extends Component {
         } else if (email !== '' && !email.includes('@')) {
             emailError = `Email must includes '@'`
         }
-        
+
         if (password === '') {
             passwordError = `Please input your Password`
         }
@@ -49,9 +49,9 @@ class Login extends Component {
         if (formValidation) {
             axios.post(`${process.env.REACT_APP_API_URL}/users/login`, this.state, { withCredentials: true })
             .then((res) => {
-                this.props.setCurrentUser(res.data.data.id)
+                this.props.setCurrentUser(res.data.data.id, res.data.data.name)
                 this.setState(initialState)
-                this.props.history.push('/profile')
+                this.props.history.push(`/users/${res.data.data.name}`)
                 this.props.handleModelOnClick()
             })
             .catch((err) => this.setState({passwordError: `Invalid password`, emailError: ''}))
@@ -77,13 +77,13 @@ class Login extends Component {
                             <label htmlFor="inputEmail">Email address</label>
                             <input onChange={ this.handleOnChange } type="text" name='email' id="inputEmail" className="form-control"  value={this.state.email} />
                             <div className='alert'>{emailError}</div>
-                            
+
                         </div>
                         <div className="form-label-group">
                             <label htmlFor="inputPassword">Password</label>
                             <input onChange={ this.handleOnChange } type="password" name='password' id="inputPassword" className="form-control" value={ this.state.password } />
                             <div className='alert'>{passwordError}</div>
-                            
+
                         </div>
                         <div className="modal-footer">
                             <button type="submit" className="btn btn-primary">Log in</button>

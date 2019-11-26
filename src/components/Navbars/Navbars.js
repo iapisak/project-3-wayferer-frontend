@@ -29,11 +29,11 @@ class Navbars extends Component {
   }
 
 
-  authenticated = (currentUser) => {
+  authenticated = (currentUser, username) => {
     const isUser = (
       <>
       <li className="nav-item">
-        <NavLink className="nav-link" to="/profile">Profile</NavLink>
+        <NavLink className="nav-link" to={`/users/${username}`}>Profile</NavLink>
       </li>
       <li className="nav-link" onClick={ this.props.logout }>Log out</li>
       </>
@@ -63,7 +63,7 @@ class Navbars extends Component {
 
           <div className="collapse navbar-collapse" id="navbarsExample04">
             <ul className="navbar-nav ml-auto">
-              { this.authenticated(this.props.currentUser)}
+              { this.authenticated(this.props.currentUser, this.props.username)}
             </ul>
           </div>
         </nav>

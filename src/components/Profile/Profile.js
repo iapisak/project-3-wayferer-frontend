@@ -18,10 +18,10 @@ class Profile extends Component {
     },
   };
 
-  componentDidMount() {
-    const userId = localStorage.getItem('uid');
+  fetchUserInfo = () => {
+    const profileUserSlug = this.props.location.pathname.split('/')[2];
     axios.get(
-      `${process.env.REACT_APP_API_URL}/users/${userId}`,
+      `${process.env.REACT_APP_API_URL}/users/${profileUserSlug}`,
       { withCredentials: true}
     ).then((res) => {
       this.setState({
@@ -29,7 +29,7 @@ class Profile extends Component {
         ajaxLoaded: true,
       });
     }).catch((err) => console.log(err));
-  }
+  };
 
   toggleEdit = () => {
     this.setState(prevState => ({
@@ -73,6 +73,7 @@ class Profile extends Component {
       updated
     ).then((res) => {
       console.log(res);
+      this.props.history.push(`/users/${updated.name}`)
     }).catch((err) => console.log(err));
   };
 
@@ -97,6 +98,16 @@ class Profile extends Component {
     }).catch((err)=>{
       console.log(err)
     });
+  }
+
+  componentDidMount() {
+    this.fetchUserInfo();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      this.fetchUserInfo();
+    }
   }
 
   render() {

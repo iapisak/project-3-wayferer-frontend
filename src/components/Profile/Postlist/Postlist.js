@@ -27,7 +27,6 @@ class Postlist extends Component {
   handlePostEditSubmit = (e, updated) => {
     e.preventDefault();
     updated.user = localStorage.getItem('uid');
-    console.log(updated)
     const postId = updated._id;
     axios.put(
       `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
@@ -54,9 +53,10 @@ class Postlist extends Component {
   };
 
   fetchPosts = () => {
-    const userId = localStorage.getItem('uid');
+    // const userId = localStorage.getItem('uid');
+    const profileUserSlug = this.props.location.pathname.split('/')[2];
     axios.get(
-      `${process.env.REACT_APP_API_URL}/users/${userId}/posts`,
+      `${process.env.REACT_APP_API_URL}/users/${profileUserSlug}/posts`,
       { withCredentials: true}
     ).then((res) => {
       res.data.posts.sort((post1, post2) => {
@@ -73,7 +73,10 @@ class Postlist extends Component {
     this.fetchPosts();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      this.fetchPosts();
+    }
     if (this.state.edited) {
       this.fetchPosts();
       this.setState({
