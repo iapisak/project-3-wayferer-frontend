@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Navbars from './components/Navbars/Navbars'
-import { withRouter } from 'react-router-dom'
-import Routes from './config/Routes'
+import Navbars from './components/Navbars/Navbars';
+import { withRouter } from 'react-router-dom';
+import Routes from './config/Routes';
 
 import './App.css';
 
