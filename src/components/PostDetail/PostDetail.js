@@ -94,14 +94,14 @@ class PostDetail extends Component {
                 <div className="post-detail-button-group btn-group">
                   <button
                     type="button"
-                    className="btn btn-primary"
+                    className="btn btn-primary post-detail-edit"
                     data-toggle="modal"
                     data-target="#editPost"
                   >
-                    edit
+                    <i class="fas fa-edit"></i>
                   </button>
-                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
-                    delete
+                  <button type="button" className="btn btn-primary post-detail-delete" data-toggle="modal" data-target="#deletemodal">
+                  <i class="fas fa-trash-alt"></i>
                   </button>
                 </div>
               }
