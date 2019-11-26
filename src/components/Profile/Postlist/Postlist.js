@@ -33,7 +33,6 @@ class Postlist extends Component {
       `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
       updated
     ).then((res) => {
-      console.log(res)
       this.setState(prevState => ({
         edited: true,
         ajaxLoaded: true,
@@ -47,9 +46,10 @@ class Postlist extends Component {
       `${process.env.REACT_APP_API_URL}/posts/${post._id}/delete/`,
       { withCredentials: true }
     )
-    .then(
-      this.props.history.push('/')
-    )
+    .then(() => {
+      this.setState({ edited: true });
+      this.props.history.push(this.props.location.pathname);
+    })
     .catch(err => console.log(err));
   };
 

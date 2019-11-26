@@ -34,7 +34,8 @@ class CityDetail extends Component {
       { withCredentials: true }
     )
     .then((res) => {
-      this.props.history.push('/');
+      this.setState({ edited: true });
+      this.props.history.push(this.props.location.pathname);
     })
     .catch(err => console.log(err));
   };
@@ -55,14 +56,17 @@ class CityDetail extends Component {
         withCredentials: true
       }
     ).then((res)=>{
-        if(res.data.data.city === this.props.city._id){
+      if (res.data.data.city === this.props.city._id) {
         const newPosts = this.state.posts.concat(res.data.data);
         newPosts.sort((post1, post2) => {
             return new Date(post2.timestamp) - new Date(post1.timestamp);
         });
         this.setState({
             posts: newPosts,
-        });}
+        });
+      } else {
+        this.props.history.push(`/${slug}`);
+      }
     })
   };
 
