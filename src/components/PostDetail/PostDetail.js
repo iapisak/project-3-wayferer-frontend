@@ -28,7 +28,7 @@ class PostDetail extends Component {
 
   displayDeleteModal = () => {
     return (
-      <div className="modal fade" id="deletemodal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div className="modal fade" id={`deletemodal${this.state.post._id}`} tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -96,11 +96,16 @@ class PostDetail extends Component {
                     type="button"
                     className="btn btn-primary"
                     data-toggle="modal"
-                    data-target="#editPost"
+                    data-target={`#editPost${this.state.post._id}`}
                   >
                     edit
                   </button>
-                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    data-toggle="modal"
+                    data-target={`#deletemodal${this.state.post._id}`}
+                  >
                     delete
                   </button>
                 </div>
