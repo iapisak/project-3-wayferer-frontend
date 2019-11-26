@@ -90,7 +90,6 @@ class CreatePost extends Component{
       this.setState({
         title: '',
         content: '',
-        modal: 'modal',
         disable: null
       });
     }
