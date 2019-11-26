@@ -9,23 +9,21 @@ import './App.css';
 class App extends Component {
   state = {
     currentUser: localStorage.getItem('uid'),
+    username: localStorage.getItem('username'),
   };
 
-  setCurrentUser = (userId) => {
-    this.setState({ currentUser: userId });
+  setCurrentUser = (userId, username) => {
+    this.setState({ currentUser: userId, username });
     localStorage.setItem('uid', userId);
+    localStorage.setItem('username', username);
   };
 
   logout = () => {
-    console.log('logout')
-    console.log(localStorage)
     localStorage.removeItem('uid');
-    console.log(localStorage)
     axios.get(`${process.env.REACT_APP_API_URL}/logout`, { withCredentials: true }
     ).then(res => {
-      console.log(res)
-        this.setState({ currentUser: null });
-        this.props.history.push('/');
+      this.setState({ currentUser: null, username: '' });
+      this.props.history.push('/');
       })
       .catch(err => console.log(err));
   };
@@ -33,7 +31,12 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbars setCurrentUser={this.setCurrentUser} logout={this.logout} currentUser={this.state.currentUser}/>
+        <Navbars
+          currentUser={this.state.currentUser}
+          username={this.state.username}
+          setCurrentUser={this.setCurrentUser}
+          logout={this.logout}
+        />
         <Routes
           currentUser={this.state.currentUser}
           setCurrentUser={this.setCurrentUser}

@@ -32,6 +32,7 @@ class Post extends Component {
 
   render() {
     const { post } = this.props;
+    const userId = typeof(post.user) === 'string' ? post.user : post.user._id;
     const postLink = `/posts/${post._id}`;
     return (
       <div className="post">
@@ -40,9 +41,11 @@ class Post extends Component {
             <Link to={postLink}>
               <h4>{post.title}</h4>
             </Link>
-            <small className="post-info-author">{post.user.name}</small>
+            <Link to={`/users/${post.user.name}`}>
+              <small className="post-info-author">{post.user.name}</small>
+            </Link>
           </div>
-          {post.user._id === localStorage.getItem('uid') &&
+          {userId === localStorage.getItem('uid') &&
             <div className="btn-group">
               <button
                 type="button"
