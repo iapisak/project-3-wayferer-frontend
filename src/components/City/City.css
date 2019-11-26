@@ -133,11 +133,13 @@ a{
     .city-photo{
         width: auto;
         height: 200px;
+        margin: 10px 20px;
     }
-    /* .city-posts{
+    .city-posts{
         width: 100%;
         font-size: .5em;
-    } */
+
+    }
     .city-home {
     display: flex;
     flex-direction: column-reverse;
@@ -161,14 +163,13 @@ a{
     }
     .city-post-content{
         width: 280px;
-        margin: 0px 10px 2px 2px;
+        margin: auto;
         height: 170px;
     }
-    .post{
-        padding: 0
-
-    }
     .city-title{
-        align-content: center;
+        text-align: center;
+    }
+    .city-posts-header{
+        margin: 2px 20px;
     }
 }
