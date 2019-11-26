@@ -68,6 +68,12 @@ class CreatePost extends Component{
       dropdownSlug:this.props.city.slug
     })
   }
+  componentDidMount = () =>{
+    this.setState({
+      intitalSlug:this.props.city.slug,
+      dropdownSlug:this.props.city.slug
+    })
+  }
 
   handleClick = (e) => {
     e.preventDefault()
@@ -80,12 +86,12 @@ class CreatePost extends Component{
         content: this.state.content,
         city: city._id,
       };
+      console.log(this.state.dropdownSlug)
       this.props.handleSubmit(e, newPost, this.state.dropdownSlug);
 
       this.setState({
         title: '',
         content: '',
-        modal: 'modal',
         disable: null
       });
     }
