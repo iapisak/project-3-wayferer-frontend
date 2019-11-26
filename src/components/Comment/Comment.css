@@ -1,0 +1,32 @@
+.comment {
+  width:100%;
+  border-bottom:2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.comments:first-child{
+  border-top:2px solid black;
+}
+.comment-form{
+  width:100%;
+  margin: 0 auto;
+}
+.user-image{
+  height: 50px;
+  width:50px;
+  background-position: center;
+  background-size: contain;
+  border-radius: 50%;
+}
+.user-detail{
+  width:25%;
+  padding-bottom: 5px;
+
+ 
+}
+
+.comment-input{
+  width:100%;
+  clear: both;
+}

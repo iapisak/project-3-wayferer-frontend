@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import PostContent from '../Profile/Postlist/Post/PostContent';
 import EditPost from '../EditPost/EditPost';
+import CommentForm from '../Comment/CommentForm'
+import Comment from '../Comment/Comment'
 import './PostDetail.css';
 
 class PostDetail extends Component {
@@ -15,6 +17,26 @@ class PostDetail extends Component {
     postCity: { name: 'testtown, USA' },
     ajaxLoaded: false,
   };
+  handleSubmit = (e,body) => {
+    e.preventDefault()
+    console.log(body)
+    const userId = localStorage.getItem('uid')
+    const comment = {
+      content:body,
+      user:userId,
+      timestamp:Date.now()
+    }
+    console.log(comment)
+    axios.post(`${process.env.REACT_APP_API_URL}/comment/${this.state.post._id}`,comment)
+    .then(res=>{
+      console.log(res)
+      this.setState({post:res.data.post})
+      
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  }
 
   deleteSelf = (e) => {
     setTimeout(1000)
@@ -71,6 +93,7 @@ class PostDetail extends Component {
       `${process.env.REACT_APP_API_URL}/posts/${postId}`,
       { withCredentials: true}
     ).then((res) => {
+      console.log(res)
       this.setState({
         post: res.data.post,
         postCity: res.data.post.city,
@@ -122,11 +145,21 @@ class PostDetail extends Component {
             }
           </div>
           {ajaxLoaded &&
+          <>
             <div>
               <p>{this.state.postCity.name}</p>
               <PostContent content={content}/>
-            </div>}
+            </div>
+            <section className="comments">
+              <CommentForm handleSubmit={this.handleSubmit} postId={this.state.post._id}/>
+              {this.state.post.comments.map(comment=>{
+                return <Comment comment={comment}/>
+              })}
+            </section>
+            </>
+            }
         </div>
+        
       </main>
     );
   }
