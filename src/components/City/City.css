@@ -3,18 +3,24 @@
     font-family: "Raleway", sans-serif;
 }
 .city-home {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     background: #f7f7f7;
+    background-size: 100vh;
 }
-
 .city-detail {
     margin: 0 auto;
+    display: grid;
+    grid-auto-rows: auto;
+    position: relative;
+    height: auto;
+
 }
 
 .city-list-container {
     width: 35vw;
     background: #a7a7a7;
-    height: 100vh;
+    height: 100%;
     overflow-y: scroll;
 }
 a{
@@ -59,8 +65,9 @@ a{
 }
 
 .city-top-banner {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: flex-start;
     padding: 20px;
     flex-direction: row-reverse;
     justify-content: space-between;
@@ -101,6 +108,8 @@ a{
 .city-posts {
     width: 60vw;
     margin: 0 15px;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .alert {
@@ -119,5 +128,13 @@ a{
     .city-photo{
         width: 225px;
         height: 200px;
+    }
+    .city-posts{
+        width: 50%;
+    }
+    .city-home {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background: #f7f7f7;
     }
 }
