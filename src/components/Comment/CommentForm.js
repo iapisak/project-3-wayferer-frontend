@@ -41,12 +41,14 @@ class CommentForm extends Component{
     const clearState = { body:'', contentError: '', disabled: true }
 
     return(
+      <>
       <form className="comment-form" onSubmit={e=>{this.props.handleSubmit(e,this.state.body)}}>
       <input className="comment-input" value={this.state.body} onFocus={this.handleFocus} onChange={this.handleInput} type='text'></input>
       <div className="alert">{this.state.contentError}</div>
-      <button onClick={() => this.setState(clearState)}>Clear</button>
       <button className="comment-submit" type='submit' disabled={this.state.disabled}>Comment</button>
       </form>
+      <button onClick={() => this.setState(clearState)}>Clear</button>
+      </>
     )
   }
 }
