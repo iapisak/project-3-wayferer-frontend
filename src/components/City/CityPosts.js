@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 // import axios from 'axios'
 import Post from '../Profile/Postlist/Post/Post';
 import CreatePost from './CreatePost';
+import './City.css'
 
 class CityPosts extends Component {
   state = {
@@ -37,8 +38,8 @@ class CityPosts extends Component {
               handleEditSubmit={this.props.handleEditSubmit}/>
           );
         })}
-        <button onClick={this.decrementPage}>-</button>
-        <button onClick={this.incrementPage}>+</button>
+        <button onClick={this.decrementPage} className="city-increment"><i class="fas fa-minus-circle"></i></button>
+        <button onClick={this.incrementPage} className="city-decrement"><i class="fas fa-plus-circle"></i></button>
 
 
       </div>

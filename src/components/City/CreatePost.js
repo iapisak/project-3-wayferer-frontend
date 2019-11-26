@@ -103,11 +103,11 @@ class CreatePost extends Component{
       <>
         <button
           type="button"
-          className="btn btn-primary"
+          className="btn btn-primary create-post"
           data-toggle="modal"
           data-target="#createPost"
         >
-          +
+          <i class="fas fa-plus-circle fa-2x"></i>
         </button>
 
         <div
