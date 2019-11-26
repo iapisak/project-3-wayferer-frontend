@@ -86,10 +86,13 @@ class PostDetail extends Component {
       <main className="main-home-page">
         <div className="container-post-detail">
           <div className="post-detail-header">
-            <h1 className="heading-post-detail">{title}</h1>
+            <div className="post-detail-title-author">
+              <h1 className="heading-post-detail">{title}</h1>
+              {ajaxLoaded && <p>by {this.state.post.user.name}</p>}
+            </div>
             {ajaxLoaded &&
             <>
-              {this.state.post.user === localStorage.getItem('uid') &&
+              {this.state.post.user._id === localStorage.getItem('uid') &&
                 <div className="post-detail-button-group btn-group">
                   <button
                     type="button"

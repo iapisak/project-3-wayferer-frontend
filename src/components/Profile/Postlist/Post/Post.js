@@ -36,10 +36,13 @@ class Post extends Component {
     return (
       <div className="post">
         <div className="post-info">
-          <Link to={postLink}>
-            <h4>{post.title}</h4>
-          </Link>
-          {post.user === localStorage.getItem('uid') &&
+          <div className="post-info-header">
+            <Link to={postLink}>
+              <h4>{post.title}</h4>
+            </Link>
+            <small className="post-info-author">{post.user.name}</small>
+          </div>
+          {post.user._id === localStorage.getItem('uid') &&
             <div className="btn-group">
               <button
                 type="button"
@@ -61,7 +64,7 @@ class Post extends Component {
           />
           {this.displayDeleteModal()}
         </div>
-        <p>{post.content.substring(0,90)}{post.content.length > 90 && '...'}</p>
+        <p className="post-content-preview">{post.content.substring(0,90)}{post.content.length > 90 && '...'}</p>
       </div>
     );
   }

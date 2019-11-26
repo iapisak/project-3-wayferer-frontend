@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import CityPosts from './CityPosts';
 
+import './City.css';
+
 class CityDetail extends Component {
   state = {
     posts: [],
