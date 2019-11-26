@@ -1,6 +1,6 @@
 import React from 'react'
 import './Comment.css'
-
+import { Link, withRouter } from 'react-router-dom';
 const Comment = (props) => {
     const {comment} = props
     const timeElapsed = (Date.now() - new Date(comment.timestamp).getTime())/1000 / 60
@@ -8,7 +8,10 @@ const Comment = (props) => {
     return(
     <div className='comment'>
       <div className="user-detail">
-        <h5>{comment.user.name}</h5>
+        <Link to={`/users/${comment.user.name}`}>
+          <h5>{comment.user.name}</h5>
+        </Link>
+       
         <div className="user-image" style={{backgroundImage:`url(${comment.user.profilePhoto})`}}/>
       </div>
       <p className="comment-body">{comment.content}</p>
@@ -19,4 +22,4 @@ const Comment = (props) => {
 }
 
 
-export default Comment
+export default withRouter(Comment)
