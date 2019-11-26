@@ -58,7 +58,8 @@ class CityPosts extends Component {
             handleSubmit={this.props.handleCreateSubmit}
           />
         </div>
-        {this.calculatePage().map(post => {
+        <div className='city-post-content'>        
+          {this.calculatePage().map(post => {
           return (
             <Post
               post={post}
@@ -67,7 +68,7 @@ class CityPosts extends Component {
               handleDelete={this.props.handleDelete}
             />
           );
-        })}
+        })}</div>
         {this.state.multiplePages
           &&
             <div>

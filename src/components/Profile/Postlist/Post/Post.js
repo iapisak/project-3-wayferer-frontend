@@ -33,19 +33,20 @@ class Post extends Component {
   render() {
     const timeElapsed = (Date.now() - new Date(this.props.post.timestamp).getTime())/1000 / 60
     const { post } = this.props;
+    const userId = typeof(post.user) === 'string' ? post.user : post.user._id;
     const postLink = `/posts/${post._id}`;
     return (
       <div className="post">
         <div className="post-info">
           <div className="post-info-header">
-            <Link to={postLink}>
-              <h4>{post.title}</h4>
-            </Link>
-            <small className="post-info-author">{post.user.name}</small>
-            <small className="post-info-author">  {timeElapsed.toFixed(2)} min ago</small>
+           
 
+            <Link to={`/users/${post.user.name}`}>
+              <small className="post-info-author">{post.user.name}</small>
+            </Link>
+            <small className="post-info-author">  {timeElapsed.toFixed(2)} min ago</small>
           </div>
-          {post.user._id === localStorage.getItem('uid') &&
+          {userId === localStorage.getItem('uid') &&
             <div className="btn-group">
               <button
                 type="button"
