@@ -31,6 +31,7 @@ class Post extends Component {
   };
 
   render() {
+    const timeElapsed = (Date.now() - new Date(this.props.post.timestamp).getTime())/1000 / 60
     const { post } = this.props;
     const postLink = `/posts/${post._id}`;
     return (
@@ -41,6 +42,8 @@ class Post extends Component {
               <h4>{post.title}</h4>
             </Link>
             <small className="post-info-author">{post.user.name}</small>
+            <small className="post-info-author">  {timeElapsed.toFixed(2)} min ago</small>
+
           </div>
           {post.user._id === localStorage.getItem('uid') &&
             <div className="btn-group">
