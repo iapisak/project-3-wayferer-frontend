@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import PostContent from '../Profile/Postlist/Post/PostContent';
@@ -31,7 +31,7 @@ class PostDetail extends Component {
     .then(res=>{
       console.log(res)
       this.setState({post:res.data.post})
-      
+
     })
     .catch(err=>{
       console.log(err)
@@ -111,7 +111,7 @@ class PostDetail extends Component {
           <div className="post-detail-header">
             <div className="post-detail-title-author">
               <h1 className="heading-post-detail">{title}</h1>
-              {ajaxLoaded && <p>by {this.state.post.user.name}</p>}
+              {ajaxLoaded && <Link to={`/users/${this.state.post.user.name}`}><p>{this.state.post.user.name}</p></Link>}
             </div>
             {ajaxLoaded &&
             <>
@@ -152,6 +152,7 @@ class PostDetail extends Component {
             </div>
             <section className="comments">
               <CommentForm handleSubmit={this.handleSubmit} postId={this.state.post._id}/>
+              <div className="post-info-author">{`${this.state.post.comments.length} comment${this.state.post.comments.length !== 1 ? 's' : ''}`}</div>
               {this.state.post.comments.map(comment=>{
                 return <Comment comment={comment}/>
               })}
@@ -159,7 +160,7 @@ class PostDetail extends Component {
             </>
             }
         </div>
-        
+
       </main>
     );
   }
