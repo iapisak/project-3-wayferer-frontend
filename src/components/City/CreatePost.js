@@ -104,7 +104,7 @@ class CreatePost extends Component{
           data-toggle="modal"
           data-target="#createPost"
         >
-          <i class="fas fa-plus-circle fa-2x"></i>
+          <i className="fas fa-plus-circle fa-2x"></i>
         </button>
 
         <div

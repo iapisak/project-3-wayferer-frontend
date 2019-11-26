@@ -96,7 +96,6 @@ class CityDetail extends Component {
       this.fetchPosts();
       this.setState({ edited: false });
     }
-
   }
 
   render() {
