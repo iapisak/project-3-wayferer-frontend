@@ -102,6 +102,7 @@ class CityDetail extends Component {
 
   render() {
     const { city } = this.props;
+    console.log(this.props)
 
     return(
       <div className="city-detail">
@@ -109,7 +110,7 @@ class CityDetail extends Component {
           <img src={city.photo} className="city-photo" alt=""/>
           <div className = "city-title">
             <h2>{city.name}</h2>
-            <p>A description goes here...</p>
+            <p>{city.description}</p>
           </div>
         </div>
         {this.state.ajaxLoaded &&
