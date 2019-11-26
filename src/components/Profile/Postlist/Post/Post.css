@@ -24,3 +24,9 @@
   background-color:#FFEB7F;
   color: black;
 }
+
+.btn-outline-secondary{
+  background-color:#FFEB7F;
+  color: black;
+  height: 36px;
+}
