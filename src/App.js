@@ -20,6 +20,7 @@ class App extends Component {
 
   logout = () => {
     localStorage.removeItem('uid');
+    localStorage.removeItem('username');
     axios.get(`${process.env.REACT_APP_API_URL}/logout`, { withCredentials: true }
     ).then(res => {
       this.setState({ currentUser: null, username: '' });

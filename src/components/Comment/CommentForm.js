@@ -1,7 +1,6 @@
-import React, {Component} from 'react'
-import axios from 'axios'
+import React, {Component} from 'react';
 
-import './Comment.css'
+import './Comment.css';
 
 class CommentForm extends Component{
   state = {

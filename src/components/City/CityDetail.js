@@ -44,7 +44,7 @@ class CityDetail extends Component {
 
   handleCreateSubmit = (e, newPost, slug) => {
     e.preventDefault();
-    const userId = localStorage.getItem('uid');
+    const userId = this.props.currentUser;
     const timestamp = (new Date()).getTime();
 
     axios.post(
@@ -74,7 +74,7 @@ class CityDetail extends Component {
 
   handleEditSubmit = (e, updated) => {
     e.preventDefault();
-    updated.user = localStorage.getItem('uid');
+    updated.user = this.props.currentUser;
     console.log(updated)
     const postId = updated._id;
     axios.put(
@@ -101,8 +101,6 @@ class CityDetail extends Component {
 
   render() {
     const { city } = this.props;
-    console.log(this.props)
-
     return(
       <div className="city-detail">
         <div className ="city-top-banner">
@@ -117,6 +115,7 @@ class CityDetail extends Component {
             city={city}
             cities = {this.props.cities}
             posts={this.state.posts}
+            currentUser={this.props.currentUser}
             handleCreateSubmit={this.handleCreateSubmit}
             handleEditSubmit={this.handleEditSubmit}
             handleDelete={this.handleDelete}

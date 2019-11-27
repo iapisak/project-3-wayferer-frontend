@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import CityList from './CityList';
 import CityRouter from '../../config/CityRoutes';
-// import CityDetail from './CityDetail';
 import './City.css';
 
 class CitiesContainer extends Component {
@@ -39,6 +38,7 @@ class CitiesContainer extends Component {
                     <CityRouter
                         city={this.findActiveCity()}
                         cities={this.state.cities}
+                        currentUser={this.props.currentUser}
                     />}
                 </div>
             </main>

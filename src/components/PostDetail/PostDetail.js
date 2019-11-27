@@ -17,26 +17,27 @@ class PostDetail extends Component {
     postCity: { name: 'testtown, USA' },
     ajaxLoaded: false,
   };
-  handleSubmit = (e,body) => {
-    e.preventDefault()
-    console.log(body)
-    const userId = localStorage.getItem('uid')
-    const comment = {
-      content:body,
-      user:userId,
-      timestamp:Date.now()
-    }
-    console.log(comment)
-    axios.post(`${process.env.REACT_APP_API_URL}/comment/${this.state.post._id}`,comment)
-    .then(res=>{
-      console.log(res)
-      this.setState({post:res.data.post})
 
+  handleSubmit = (e, body) => {
+    e.preventDefault();
+    const userId = this.props.currentUser;
+    const comment = {
+      content: body,
+      user: userId,
+      timestamp: Date.now(),
+    }
+
+    axios.post(`${process.env.REACT_APP_API_URL}/comment/${this.state.post._id}`, comment)
+    .then(res=>{
+      const { comments } = res.data.post;
+      this.setState(prevState => ({
+        post: { ...prevState.post, comments },
+      }));
     })
     .catch(err=>{
       console.log(err)
     })
-  }
+  };
 
   deleteSelf = (e) => {
     setTimeout(1000)
@@ -73,14 +74,12 @@ class PostDetail extends Component {
 
   handleEditSubmit = (e, updated) => {
     e.preventDefault();
-    updated.user = localStorage.getItem('uid');
-    console.log(updated)
+    updated.user = this.props.currentUser;
     const postId = this.state.post._id;
     axios.put(
       `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
       updated
     ).then((res) => {
-      console.log(res)
       this.setState({
         post: res.data.data,
       });
@@ -93,7 +92,6 @@ class PostDetail extends Component {
       `${process.env.REACT_APP_API_URL}/posts/${postId}`,
       { withCredentials: true}
     ).then((res) => {
-      console.log(res)
       this.setState({
         post: res.data.post,
         postCity: res.data.post.city,
@@ -115,7 +113,7 @@ class PostDetail extends Component {
             </div>
             {ajaxLoaded &&
             <>
-              {this.state.post.user._id === localStorage.getItem('uid') &&
+              {this.state.post.user._id === this.props.currentUser &&
                 <div className="post-detail-button-group btn-group">
                   <button
                     type="button"

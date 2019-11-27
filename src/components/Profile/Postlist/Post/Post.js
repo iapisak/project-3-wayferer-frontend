@@ -48,7 +48,7 @@ class Post extends Component {
   render() {
     const timeElapsed = (Date.now() - new Date(this.props.post.timestamp).getTime())/1000 / 60
     const { post } = this.props;
-    const userId = typeof(post.user) === 'string' ? post.user : post.user._id;
+    const postUserId = typeof(post.user) === 'string' ? post.user : post.user._id;
     const postLink = `/posts/${post._id}`;
     return (
       <div className="post">
@@ -63,7 +63,7 @@ class Post extends Component {
             </Link>
             <small className="post-info-author">  {this.determineTime(timeElapsed)}</small>
           </div>
-          {userId === localStorage.getItem('uid') &&
+          {postUserId === this.props.currentUser &&
             <div className="btn-group">
               <button
                 type="button"

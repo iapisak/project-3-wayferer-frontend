@@ -57,6 +57,7 @@ class Profile extends Component {
           toggleEdit={this.toggleEdit}
           pictureUploaded={this.pictureUploaded}
           fileUploadHandler={this.fileUploadHandler}
+          currentUser={this.props.currentUser}
         />
       );
     }
@@ -64,39 +65,39 @@ class Profile extends Component {
 
   handleSubmit = (updated) => {
     this.toggleEdit();
-    const {profilePhoto} = this.state.user
-    const newUser = {...updated,profilePhoto}
-    this.setState({user:newUser})
-    const userId = localStorage.getItem('uid');
+    const { profilePhoto } = this.state.user;
+    const newUser = { ...updated, profilePhoto };
+    this.setState({ user: newUser })
+
+    const userId = this.props.currentUser;
     axios.put(
       `${process.env.REACT_APP_API_URL}/users/${userId}/update`,
       updated
     ).then((res) => {
-      console.log(res);
-      this.props.history.push(`/users/${updated.name}`)
+      localStorage.setItem('username', updated.name);
+      this.props.history.push(`/users/${updated.name}`);
+      this.props.setCurrentUser(this.props.currentUser, updated.name);
     }).catch((err) => console.log(err));
   };
 
-  pictureUploaded =(event)=>{
-    console.log(event.originalUrl)
+  pictureUploaded = (event) => {
     this.setState({
       user:{
         ...this.state.user,
-        profilePhoto: event.originalUrl
+        profilePhoto: event.originalUrl,
       },
       editMode: false,
-    })
-    console.log(this.state.user.profilePhoto)
-    const photoLink = this.state.user.profilePhoto
-    const userId = localStorage.getItem('uid');
+    });
+
+    const photoLink = this.state.user.profilePhoto;
+    const userId = this.props.currentUser;
     axios.put(
       `${process.env.REACT_APP_API_URL}/users/${userId}/update`,
       {profilePhoto:photoLink}
     ).then((res)=>{
       window.location.reload();
-      // this.props.history.push('/')
     }).catch((err)=>{
-      console.log(err)
+      console.log(err);
     });
   }
 
@@ -115,7 +116,7 @@ class Profile extends Component {
       <main className="main-home-page">
         <div className="profile-container row">
           {this.displayUserInfo()}
-            <Postlist />
+            <Postlist currentUser={this.props.currentUser}/>
         </div>
       </main>
     );

@@ -13,6 +13,7 @@ export default (props) => {
           <CityDetail
             city={props.city}
             cities={props.cities}
+            currentUser={props.currentUser}
           />
         )}
       />
