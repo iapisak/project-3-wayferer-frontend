@@ -81,7 +81,6 @@ class CityDetail extends Component {
       `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
       updated
     ).then((res) => {
-      console.log(res)
       this.setState(prevState => ({
         edited: true,
         ajaxLoaded: true,
