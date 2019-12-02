@@ -32,6 +32,7 @@ class CityPosts extends Component {
   setMultiplePages = () => {
     const totalPages = Math.ceil(this.props.posts.length / 4);
     this.setState({
+      page: 0,
       totalPages,
       multiplePages: totalPages > 1 ? true : false,
     });
@@ -58,7 +59,7 @@ class CityPosts extends Component {
             handleSubmit={this.props.handleCreateSubmit}
           />
         </div>
-        <div className='city-post-content'>        
+        <div className='city-post-content'>
           {this.calculatePage().map(post => {
           return (
             <Post
@@ -66,6 +67,7 @@ class CityPosts extends Component {
               key={post._id}
               handleEditSubmit={this.props.handleEditSubmit}
               handleDelete={this.props.handleDelete}
+              currentUser={this.props.currentUser}
             />
           );
         })}</div>

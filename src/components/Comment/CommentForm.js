@@ -1,7 +1,6 @@
-import React, {Component} from 'react'
-import axios from 'axios'
+import React, {Component} from 'react';
 
-import './Comment.css'
+import './Comment.css';
 
 class CommentForm extends Component{
   state = {
@@ -9,7 +8,7 @@ class CommentForm extends Component{
     contentError: '',
     disabled: true,
   }
- 
+
   handleInput = (e) => {
     this.setState({
       body:e.target.value
@@ -37,12 +36,17 @@ class CommentForm extends Component{
     }
   }
 
+  commentFormSubmit = (e) => {
+    this.setState({ body:'', contentError: '', disabled: true });
+    this.props.handleSubmit(e,this.state.body);
+  }
+
   render(){
     const clearState = { body:'', contentError: '', disabled: true }
 
     return(
       <>
-      <form className="comment-form" onSubmit={e=>{this.props.handleSubmit(e,this.state.body)}}>
+      <form className="comment-form" onSubmit={this.commentFormSubmit}>
       <input className="comment-input" value={this.state.body} onFocus={this.handleFocus} onChange={this.handleInput} type='text'></input>
       <div className="alert">{this.state.contentError}</div>
       <button className="comment-submit" type='submit' disabled={this.state.disabled}>Comment</button>

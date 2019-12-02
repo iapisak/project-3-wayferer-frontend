@@ -5,6 +5,21 @@ import EditPost from '../../../EditPost/EditPost';
 import './Post.css';
 
 class Post extends Component {
+    determineTime = (timeElapsed) => {
+    let string = "minutes"
+    if(timeElapsed > 60){
+      timeElapsed = timeElapsed / 60
+      string = 'hours'
+    }
+
+    if(timeElapsed > 24) {
+      timeElapsed = timeElapsed / 24
+      string = 'days'
+    }
+    timeElapsed = Math.floor(timeElapsed)
+
+    return `${timeElapsed} ${string} ago`
+  }
   displayDeleteModal = () => {
     const { post, handleDelete } = this.props;
     return (
@@ -33,7 +48,7 @@ class Post extends Component {
   render() {
     const timeElapsed = (Date.now() - new Date(this.props.post.timestamp).getTime())/1000 / 60
     const { post } = this.props;
-    const userId = typeof(post.user) === 'string' ? post.user : post.user._id;
+    const postUserId = typeof(post.user) === 'string' ? post.user : post.user._id;
     const postLink = `/posts/${post._id}`;
     return (
       <div className="post">
@@ -46,9 +61,9 @@ class Post extends Component {
             <Link to={`/users/${post.user.name}`}>
               <small className="post-info-author">{post.user.name}</small>
             </Link>
-            <small className="post-info-author">  {timeElapsed.toFixed(2)} min ago</small>
+            <small className="post-info-author">  {this.determineTime(timeElapsed)}</small>
           </div>
-          {userId === localStorage.getItem('uid') &&
+          {postUserId === this.props.currentUser &&
             <div className="btn-group">
               <button
                 type="button"
@@ -71,6 +86,7 @@ class Post extends Component {
           {this.displayDeleteModal()}
         </div>
         <p className="post-content-preview">{post.content.substring(0,90)}{post.content.length > 90 && '...'}</p>
+        <div className="post-info-author">{`${post.comments.length} comment${post.comments.length !== 1 ? 's' : ''}`}</div>
       </div>
     );
   }

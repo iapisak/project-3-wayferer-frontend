@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Navbars from './components/Navbars/Navbars'
-import { withRouter } from 'react-router-dom'
-import Routes from './config/Routes'
+import Navbars from './components/Navbars/Navbars';
+import { withRouter } from 'react-router-dom';
+import Routes from './config/Routes';
 
 import './App.css';
 
@@ -20,6 +20,7 @@ class App extends Component {
 
   logout = () => {
     localStorage.removeItem('uid');
+    localStorage.removeItem('username');
     axios.get(`${process.env.REACT_APP_API_URL}/logout`, { withCredentials: true }
     ).then(res => {
       this.setState({ currentUser: null, username: '' });

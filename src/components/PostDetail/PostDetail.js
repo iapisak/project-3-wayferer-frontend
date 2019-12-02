@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import PostContent from '../Profile/Postlist/Post/PostContent';
@@ -17,26 +17,27 @@ class PostDetail extends Component {
     postCity: { name: 'testtown, USA' },
     ajaxLoaded: false,
   };
-  handleSubmit = (e,body) => {
-    e.preventDefault()
-    console.log(body)
-    const userId = localStorage.getItem('uid')
+
+  handleSubmit = (e, body) => {
+    e.preventDefault();
+    const userId = this.props.currentUser;
     const comment = {
-      content:body,
-      user:userId,
-      timestamp:Date.now()
+      content: body,
+      user: userId,
+      timestamp: Date.now(),
     }
-    console.log(comment)
-    axios.post(`${process.env.REACT_APP_API_URL}/comment/${this.state.post._id}`,comment)
+
+    axios.post(`${process.env.REACT_APP_API_URL}/comment/${this.state.post._id}`, comment)
     .then(res=>{
-      console.log(res)
-      this.setState({post:res.data.post})
-      
+      const { comments } = res.data.post;
+      this.setState(prevState => ({
+        post: { ...prevState.post, comments },
+      }));
     })
     .catch(err=>{
       console.log(err)
     })
-  }
+  };
 
   deleteSelf = (e) => {
     setTimeout(1000)
@@ -73,14 +74,12 @@ class PostDetail extends Component {
 
   handleEditSubmit = (e, updated) => {
     e.preventDefault();
-    updated.user = localStorage.getItem('uid');
-    console.log(updated)
+    updated.user = this.props.currentUser;
     const postId = this.state.post._id;
     axios.put(
       `${process.env.REACT_APP_API_URL}/posts/${postId}/edit`,
       updated
     ).then((res) => {
-      console.log(res)
       this.setState({
         post: res.data.data,
       });
@@ -93,7 +92,6 @@ class PostDetail extends Component {
       `${process.env.REACT_APP_API_URL}/posts/${postId}`,
       { withCredentials: true}
     ).then((res) => {
-      console.log(res)
       this.setState({
         post: res.data.post,
         postCity: res.data.post.city,
@@ -111,11 +109,11 @@ class PostDetail extends Component {
           <div className="post-detail-header">
             <div className="post-detail-title-author">
               <h1 className="heading-post-detail">{title}</h1>
-              {ajaxLoaded && <p>by {this.state.post.user.name}</p>}
+              {ajaxLoaded && <Link to={`/users/${this.state.post.user.name}`}><p>{this.state.post.user.name}</p></Link>}
             </div>
             {ajaxLoaded &&
             <>
-              {this.state.post.user._id === localStorage.getItem('uid') &&
+              {this.state.post.user._id === this.props.currentUser &&
                 <div className="post-detail-button-group btn-group">
                   <button
                     type="button"
@@ -152,6 +150,7 @@ class PostDetail extends Component {
             </div>
             <section className="comments">
               <CommentForm handleSubmit={this.handleSubmit} postId={this.state.post._id}/>
+              <div className="post-info-author">{`${this.state.post.comments.length} comment${this.state.post.comments.length !== 1 ? 's' : ''}`}</div>
               {this.state.post.comments.map(comment=>{
                 return <Comment comment={comment}/>
               })}
@@ -159,7 +158,7 @@ class PostDetail extends Component {
             </>
             }
         </div>
-        
+
       </main>
     );
   }
