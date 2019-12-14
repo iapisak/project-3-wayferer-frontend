@@ -1,5 +1,5 @@
 # Project Wayfarer
-This project is about an example about job in real life. The client, Instructor, has provided basic wireframes and user stories. In some cases, these requirements may be vague or incomplete.
+This project is an example about real life work. The client, Instructor, has provided basic wireframes and user stories. In some cases, these requirements may be vague or incomplete.
 
 ## About
 - A travel community for users to share city-specific tips ("posts" or "logs") about their favorite locations around the world. I created this with 3 contributing developers in one week. The majority of this project was front-end and back-end at the same time. Our team switched roles often to finish every requirement of the project. 
